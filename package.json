@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node src/server",
-    "test": "eslint src/"
+    "test": "eslint src/",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
   "devDependencies": {
     "babel-preset-env": "^1.5.2",
