@@ -1,0 +1,31 @@
+{
+  "name": "NYTReact",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/VolkRiot/NYTReact.git",
+  "author": "Mikhail Metrikin <metrikin@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node src/server",
+    "test": "eslint src/"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.5.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.0.1",
+    "husky": "^0.13.4",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.5",
+    "react": "^15.5.4"
+  }
+}
