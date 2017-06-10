@@ -6,7 +6,7 @@
   "author": "Mikhail Metrikin <metrikin@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node src/server",
+    "start": "nodemon --exec babel-node src/server",
     "test": "eslint src/",
     "precommit": "npm test",
     "prepush": "npm test"
