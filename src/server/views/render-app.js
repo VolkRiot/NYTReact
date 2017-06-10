@@ -6,8 +6,8 @@ const renderApp = title =>
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <div class="app"></div>
-    <script src="http://localhost:/public/bundle.js"></script>
+    <div id="app"></div>
+    <script src="http://localhost:3000/public/js/bundle.js"></script>
   </body>
 </html>
 `;

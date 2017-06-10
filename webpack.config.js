@@ -1,8 +1,12 @@
+/* eslint-disable no-var */
+var path = require('path');
+
 module.exports = {
-  entry: ['./src/client'],
+  entry: ['./src/client/index.jsx'],
   output: {
-    filename: 'public/js/bundle.js',
-    publicPath: 'http://localhost:3000/public/js/',
+    filename: 'js/bundle.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: 'http://localhost:3000/public/',
   },
   module: {
     rules: [{ test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/ }],

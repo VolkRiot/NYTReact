@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import path from 'path';
 import mongoose from 'mongoose';
+import renderApp from './views/render-app';
 
 mongoose.Promise = Promise;
 
@@ -39,6 +40,10 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // Static Routes
 app.use(express.static(path.join(__dirname, '../../public')));
+
+app.get('/', (req, res) => {
+  res.send(renderApp('NYTReact'));
+});
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
