@@ -8,7 +8,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/server",
     "dev:wds": "webpack-dev-server --progress",
-    "test": "eslint src/",
+    "test": "eslint src/ --ext .js,.jsx",
     "precommit": "npm test",
     "prepush": "npm test"
   },
