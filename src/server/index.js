@@ -53,5 +53,6 @@ process.on('SIGINT', () => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server started and listening on port: ${PORT}`);
+  console.log(`Server started and listening on port: ${PORT}. Run and keep process "yarn
+    dev:wds" running in seperate terminal`);
 });
