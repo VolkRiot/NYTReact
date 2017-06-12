@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './app';
 
+// Hot module reload wrapper
 const wrapApp = AppComponent =>
   (<AppContainer>
     <AppComponent />

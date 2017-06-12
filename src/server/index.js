@@ -6,12 +6,15 @@ import compression from 'compression';
 import path from 'path';
 import mongoose from 'mongoose';
 import renderApp from './views/render-app';
+import routes from './routes';
 
 mongoose.Promise = Promise;
 
 const PORT = process.env.PORT || '8080';
 
+// Load Express and all Routes created
 const app = express();
+routes(app);
 
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI);
