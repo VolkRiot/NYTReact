@@ -2,7 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './app';
+// import App from './app';
+import Main from './components/Main';
 
 // Hot module reload wrapper
 const wrapApp = AppComponent =>
@@ -10,11 +11,11 @@ const wrapApp = AppComponent =>
     <AppComponent />
   </AppContainer>);
 
-ReactDOM.render(wrapApp(App), document.getElementById('app'));
+ReactDOM.render(wrapApp(Main), document.getElementById('app'));
 
 if (module.hot) {
   module.hot.accept('./app', () => {
-    const NextApp = require('./app').default;
+    const NextApp = require('./components/Main').default;
     ReactDOM.render(wrapApp(NextApp), document.getElementById('app'));
   });
 }

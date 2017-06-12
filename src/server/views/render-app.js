@@ -10,13 +10,7 @@ const renderApp = title =>
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div id="app"></div>
-        </div>
-      </div>
-    </div>
+  <div id="app"></div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>

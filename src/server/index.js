@@ -14,7 +14,6 @@ const PORT = process.env.PORT || '8080';
 
 // Load Express and all Routes created
 const app = express();
-routes(app);
 
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI);
@@ -44,7 +43,11 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // Static Routes
 app.use(express.static(path.join(__dirname, '../../public')));
 
-app.get('/', (req, res) => {
+// Define Additional Routes
+routes(app);
+
+// Main render Route
+app.get('*', (req, res) => {
   res.send(renderApp('NYTReact'));
 });
 
