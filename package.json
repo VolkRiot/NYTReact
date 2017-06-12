@@ -6,9 +6,9 @@
   "author": "Mikhail Metrikin <metrikin@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server",
+    "start": "nodemon -e js,jsx --exec babel-node src/server",
     "dev:wds": "webpack-dev-server --progress",
-    "test": "eslint src/ --ext .js,.jsx",
+    "test": "eslint src webpack.config.babel.js --ext .js,.jsx",
     "precommit": "npm test",
     "prepush": "npm test"
   },

@@ -1,8 +1,9 @@
 /* eslint-disable no-var */
+var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry: ['./src/client/app.jsx'],
+  entry: ['react-hot-loader/patch', './src/client/'],
   output: {
     filename: 'js/bundle.js',
     path: path.resolve(__dirname, 'public'),
@@ -17,5 +18,15 @@ module.exports = {
   },
   devServer: {
     port: 3000,
+    hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
 };
