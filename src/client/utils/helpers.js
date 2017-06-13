@@ -3,7 +3,7 @@ import axios from 'axios';
 class NYTApi extends axios {
   constructor(apiKey) {
     super();
-    this.API_KEY = apiKey;
+    this.API_KEY = '77e2b3f4961e4221abe3128890131cba';
   }
 
   runQuery(term, start, end) {

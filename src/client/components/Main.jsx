@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Search from './children/Search';
 
-class Main extends React.Component {
+class Main extends Component {
   render() {
     return (
       <div className="main-container">
@@ -13,6 +14,7 @@ class Main extends React.Component {
             Search for Articles in the NYT Api and save them to a Mongo database
           </p>
         </div>
+        <Search />
       </div>
     );
   }
