@@ -16,8 +16,10 @@ class NYTApi extends axios {
         'api-key': this.API_KEY,
         q: searchTerm,
         begin_date: startYear,
-        end_date: end,
+        end_date: toYear,
       },
     }).then(results => results.data.response);
   }
 }
+
+export default NYTApi;
