@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class NYTApi {
   constructor() {
-    this.API_KEY = '77e2b3f4961e4221abe3128890131cba';
+    this.API_KEY = '3dbfbf1bb1034c4bb5e8901725645c29'; // '77e2b3f4961e4221abe3128890131cba';
     this.axios = axios;
   }
 
