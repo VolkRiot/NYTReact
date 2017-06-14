@@ -6,7 +6,8 @@
   "author": "Mikhail Metrikin <metrikin@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -e js,jsx --exec babel-node src/server",
+    "start": "node dist/server",
+    "build": "rimraf dist/ && webpack && babel ./src --out-dir dist/ --ignore ./node_modules,./.eslintrc.json,./.babelrc,./npm-debug.log --copy-files",
     "dev:wds": "webpack-dev-server --progress",
     "test": "eslint src webpack.config.babel.js --ext .js,.jsx",
     "precommit": "npm test",
