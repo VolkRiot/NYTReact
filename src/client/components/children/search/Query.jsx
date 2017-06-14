@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Query extends Component {
   constructor(props) {
     super(props);
     this.state = { topic: '', startYr: '', endYr: '' };
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value });
+  }
+
+  handleSubmit() {
+    this.props.performSearch(this.state);
   }
 
   render() {
@@ -37,6 +44,7 @@ class Query extends Component {
                 className="form-control "
                 id="startYr"
                 onChange={this.handleChange}
+                required
               />
 
               <h4 className="">End Year (Required)</h4>
@@ -45,12 +53,13 @@ class Query extends Component {
                 className="form-control "
                 id="endYr"
                 onChange={this.handleChange}
+                required
               />
 
             </div>
 
             <div className="pull-right">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>
                 <h4>Submit</h4>
               </button>
             </div>
@@ -60,5 +69,16 @@ class Query extends Component {
     );
   }
 }
+
+Query.propTypes = {
+  performSearch: PropTypes.func,
+};
+
+Query.defaultProps = {
+  performSearch: () => {
+    // eslint-disable-next-line no-console
+    console.log('Clicked');
+  },
+};
 
 export default Query;
