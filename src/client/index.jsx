@@ -2,8 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-// import App from './app';
-import Main from './components/Main';
+import Routes from './routes';
 
 // Hot module reload wrapper
 const wrapApp = AppComponent =>
@@ -11,11 +10,11 @@ const wrapApp = AppComponent =>
     <AppComponent />
   </AppContainer>);
 
-ReactDOM.render(wrapApp(Main), document.getElementById('app'));
+ReactDOM.render(wrapApp(Routes), document.getElementById('app'));
 
 if (module.hot) {
-  module.hot.accept('./app', () => {
-    const NextApp = require('./components/Main').default;
+  module.hot.accept('./routes', () => {
+    const NextApp = require('./routes').default;
     ReactDOM.render(wrapApp(NextApp), document.getElementById('app'));
   });
 }

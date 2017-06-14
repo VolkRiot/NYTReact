@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Query from './search/Query';
 import NYTApi from '../../utils/helpers';
 import Results from './search/Results';
+import Router from 'react-router';
 
 const ApiHelper = new NYTApi();
 

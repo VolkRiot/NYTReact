@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router';
 import Search from './children/Search';
 
 class Main extends Component {
@@ -14,7 +15,7 @@ class Main extends Component {
             Search for Articles in the NYT Api and save them to a Mongo database
           </p>
         </div>
-        <Search />
+        <Route exact path="/" component={Search} />
       </div>
     );
   }
