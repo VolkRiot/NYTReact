@@ -9,7 +9,6 @@ class Results extends Component {
   constructor(props) {
     super(props);
     this.state = { results: [] };
-    // this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +41,7 @@ class Results extends Component {
               <a href={article.web_url} target="_blank" rel="noopener noreferrer">
                 <button className="btn btn-default ">View Article</button>
               </a>
-              <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>
+              <button className="btn btn-primary" onClick={() => this.handleClick(article)}>
                 Save
               </button>
             </span>
