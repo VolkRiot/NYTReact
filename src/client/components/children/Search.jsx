@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Query from './search/Query';
 import NYTApi from '../../utils/helpers';
 
+const ApiHelper = new NYTApi();
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +22,18 @@ class Search extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    NYTApi.
+    const newSearch = {
+      term: this.state.topic,
+      start: this.state.startYr,
+      end: this.state.endYr,
+    };
+
+    ApiHelper.runQuery(newSearch).then((resp) => {
+      console.log('Response right now is', resp);
+    });
   }
 
   setSearch(args) {
-    console.log('Diff so here it is', args);
     this.setState(args);
   }
 
