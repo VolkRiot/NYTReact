@@ -22,7 +22,7 @@ class Results extends Component {
   }
 
   render() {
-    if (this.state.results === []) {
+    if (this.state.results.length === 0) {
       return (
         <li className="list-group-item">
           <h3>

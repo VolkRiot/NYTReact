@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Query from './search/Query';
 import NYTApi from '../../utils/helpers';
 import Results from './search/Results';
-import Router from 'react-router';
 
 const ApiHelper = new NYTApi();
 
@@ -38,14 +37,14 @@ class Search extends Component {
 
   render() {
     return (
-      <div className="main-part">
+      <div className="container">
         <div className="row">
-          <div className="col-md-offset-2 col-md-8">
+          <div className="col-lg-12">
             <Query performSearch={this.setSearch} />
           </div>
         </div>
         <div className="row">
-          <div className="col-md-offset-2 col-md-8">
+          <div className="col-md-12">
             <Results results={this.state.results} />
           </div>
         </div>
