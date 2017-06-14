@@ -15,7 +15,11 @@ class Search extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state === nextState) {
+    if (
+      this.state.topic === nextState.topic &&
+      this.state.startYr === nextState.startYr &&
+      this.state.endYr === nextState.endYr
+    ) {
       return false;
     }
     return true;
@@ -40,7 +44,7 @@ class Search extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-offset-2 col-md-8">
           <Query performSearch={this.setSearch} />
         </div>
       </div>
