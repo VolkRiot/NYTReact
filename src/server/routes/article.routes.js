@@ -6,7 +6,7 @@ const Router = express.Router();
 Router.get('/saved', (req, res) => {
   Article.find({}).exec((err, doc) => {
     if (err) res.status(500).send('Error while retrieving your durned Articles');
-    res.send(doc);
+    res.status(200).send(doc);
   });
 });
 

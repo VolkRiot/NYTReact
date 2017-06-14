@@ -30,6 +30,10 @@ class NYTApi {
 
     return this.axios.post('/api/saved', newArticle);
   }
+
+  getSaved() {
+    return this.axios.get('/api/saved');
+  }
 }
 
 export default NYTApi;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import Search from './children/Search';
+import Saved from './children/Saved';
 
 class Main extends Component {
   render() {
@@ -16,6 +17,13 @@ class Main extends Component {
           </p>
         </div>
         <Route exact path="/" component={Search} />
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <Route exact path="/" component={Saved} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
