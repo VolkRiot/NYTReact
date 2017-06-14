@@ -20,6 +20,16 @@ class NYTApi {
       },
     });
   }
+
+  saveArticle(article) {
+    const newArticle = {
+      title: article.headline.main,
+      date: new Date(),
+      url: article.web_url,
+    };
+
+    return this.axios.post('/api/saved', newArticle);
+  }
 }
 
 export default NYTApi;

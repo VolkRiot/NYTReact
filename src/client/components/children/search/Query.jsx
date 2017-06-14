@@ -71,14 +71,7 @@ class Query extends Component {
 }
 
 Query.propTypes = {
-  performSearch: PropTypes.func,
-};
-
-Query.defaultProps = {
-  performSearch: () => {
-    // eslint-disable-next-line no-console
-    console.log('Clicked');
-  },
+  performSearch: PropTypes.func.isRequired,
 };
 
 export default Query;

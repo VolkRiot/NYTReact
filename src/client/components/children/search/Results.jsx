@@ -1,15 +1,25 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import NYTApi from '../../../utils/helpers';
+
+const ApiHelper = new NYTApi();
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = { results: [] };
+    // this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ results: nextProps.results });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  handleClick(article) {
+    // console.log('On click article is shown to be', article);
+    ApiHelper.saveArticle(article);
   }
 
   render() {
@@ -29,13 +39,12 @@ class Results extends Component {
           <h3>
             <span><em>{article.headline.main}</em></span>
             <span className="btn-group pull-right">
-              <a href={article.web_url} target="_blank">
+              <a href={article.web_url} target="_blank" rel="noopener noreferrer">
                 <button className="btn btn-default ">View Article</button>
               </a>
-
-              {/* <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>
+              <button className="btn btn-primary" onClick={this.handleClick.bind(this, article)}>
                 Save
-              </button> */}
+              </button>
             </span>
           </h3>
           <p>Date Published: {article.pub_date}</p>

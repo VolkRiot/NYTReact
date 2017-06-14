@@ -11,7 +11,10 @@ Router.get('/saved', (req, res) => {
 });
 
 Router.post('/saved', (req, res) => {
-  // (post) - your components will use this to save an article to the database
+  const newArticle = new Article(req.body)
+  newArticle.save((err, doc) => {
+    if (err) res.status(500).send('Error happended while saving your article');
+  })
 });
 
 Router.delete('/saved', (req, res) => {
