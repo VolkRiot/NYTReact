@@ -18,7 +18,10 @@ Router.post('/saved', (req, res) => {
 });
 
 Router.delete('/saved', (req, res) => {
-  // (delete) - your components will use this to delete a saved article in the database
+  Article.findByIdAndRemove(req.query.id).then((resp, err) => {
+    if (err) res.status(500).send('Failed to remove this record');
+    res.status(200).send({ success: true });
+  });
 });
 
 export default Router;

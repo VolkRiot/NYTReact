@@ -34,6 +34,10 @@ class NYTApi {
   getSaved() {
     return this.axios.get('/api/saved');
   }
+
+  delete(id) {
+    return this.axios.delete('/api/saved', { params: { id } });
+  }
 }
 
 export default NYTApi;

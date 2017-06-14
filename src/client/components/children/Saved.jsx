@@ -9,7 +9,7 @@ class Saved extends Component {
     this.state = { savedArticles: [] };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     NytHelper.getSaved().then((resp) => {
       this.setState({
         savedArticles: resp.data,
@@ -18,7 +18,8 @@ class Saved extends Component {
   }
 
   handleClick(article) {
-    console.log('Clicked');
+    // eslint-disable-next-line no-underscore-dangle
+    NytHelper.delete(article._id);
   }
 
   render() {
@@ -49,7 +50,8 @@ class Saved extends Component {
           </h3>
           <p>Date Published: {article.date}</p>
         </li>
-      </div>));
+      </div>),
+    );
 
     return (
       <div className="panel panel-primary">
