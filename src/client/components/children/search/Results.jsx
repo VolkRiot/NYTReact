@@ -17,7 +17,6 @@ class Results extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleClick(article) {
-    // console.log('On click article is shown to be', article);
     ApiHelper.saveArticle(article);
   }
 
@@ -33,6 +32,7 @@ class Results extends Component {
     }
 
     const articles = this.state.results.map(article =>
+      //  eslint-disable-next-line no-underscore-dangle
       (<div key={article._id}>
         <li className="list-group-item">
           <h3>
