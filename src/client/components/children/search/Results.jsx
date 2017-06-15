@@ -33,7 +33,6 @@ class Results extends Component {
     }
 
     const articles = this.state.results.map(article =>
-      //  eslint-disable-next-line no-underscore-dangle
       (<div key={article._id}>
         <li className="list-group-item">
           <h3>
@@ -70,11 +69,7 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-  results: PropTypes.array,
-};
-
-Results.defaultProps = {
-  results: [],
+  results: PropTypes.array.isRequired,
 };
 
 export default Results;
