@@ -8,9 +8,10 @@ const ApiHelper = new NYTApi();
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = { topic: '', startYr: '', endYr: '', results: [] };
+    this.state = { topic: '', startYr: '', endYr: '', results: [], saved: [] };
 
     this.setSearch = this.setSearch.bind(this);
+    this.setSaved = this.setSaved.bind(this);
   }
 
   componentDidUpdate() {
@@ -35,6 +36,12 @@ class Search extends Component {
     this.setState(args);
   }
 
+  setSaved(args) {
+    const newState = this.state;
+    newState.saved = args;
+    this.setState(newState);
+  }
+
   render() {
     return (
       <div className="container">
@@ -45,7 +52,10 @@ class Search extends Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <Results results={this.state.results} />
+            <Results
+              results={this.state.results}
+              updateSaved={this.setSaved}
+            />
           </div>
         </div>
       </div>

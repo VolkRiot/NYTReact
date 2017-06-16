@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "166e7831c0f25a4c618d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "db873171d003422ad515"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -38104,9 +38104,10 @@ var Search = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-    _this.state = { topic: '', startYr: '', endYr: '', results: [] };
+    _this.state = { topic: '', startYr: '', endYr: '', results: [], saved: [] };
 
     _this.setSearch = _this.setSearch.bind(_this);
+    _this.setSaved = _this.setSaved.bind(_this);
     return _this;
   }
 
@@ -38135,6 +38136,13 @@ var Search = function (_Component) {
       this.setState(args);
     }
   }, {
+    key: 'setSaved',
+    value: function setSaved(args) {
+      var newState = this.state;
+      newState.saved = args;
+      this.setState(newState);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -38155,7 +38163,10 @@ var Search = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-12' },
-            _react2.default.createElement(_Results2.default, { results: this.state.results })
+            _react2.default.createElement(_Results2.default, {
+              results: this.state.results,
+              updateSaved: this.setSaved
+            })
           )
         )
       );
@@ -38373,12 +38384,20 @@ var Results = function (_Component) {
   }, {
     key: 'handleClick',
     value: function handleClick(article) {
-      ApiHelper.saveArticle(article);
+      var _this2 = this;
+
+      ApiHelper.saveArticle(article).then(function (resp) {
+        if (resp.data.success) {
+          ApiHelper.getSaved().then(function (answ) {
+            _this2.props.updateSaved(answ.data);
+          });
+        }
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.state.results.length === 0) {
         return _react2.default.createElement(
@@ -38436,7 +38455,7 @@ var Results = function (_Component) {
                   _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: function onClick() {
-                        return _this2.handleClick(article);
+                        return _this3.handleClick(article);
                       } },
                     'Save'
                   )
@@ -38487,7 +38506,8 @@ var Results = function (_Component) {
 }(_react.Component);
 
 Results.propTypes = {
-  results: _propTypes2.default.array.isRequired
+  results: _propTypes2.default.array.isRequired,
+  updateSaved: _propTypes2.default.func.isRequired
 };
 
 exports.default = Results;

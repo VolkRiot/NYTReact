@@ -52,12 +52,20 @@ var Results = function (_Component) {
   }, {
     key: 'handleClick',
     value: function handleClick(article) {
-      ApiHelper.saveArticle(article);
+      var _this2 = this;
+
+      ApiHelper.saveArticle(article).then(function (resp) {
+        if (resp.data.success) {
+          ApiHelper.getSaved().then(function (answ) {
+            _this2.props.updateSaved(answ.data);
+          });
+        }
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.state.results.length === 0) {
         return _react2.default.createElement(
@@ -115,7 +123,7 @@ var Results = function (_Component) {
                   _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: function onClick() {
-                        return _this2.handleClick(article);
+                        return _this3.handleClick(article);
                       } },
                     'Save'
                   )
@@ -166,7 +174,8 @@ var Results = function (_Component) {
 }(_react.Component);
 
 Results.propTypes = {
-  results: _propTypes2.default.array.isRequired
+  results: _propTypes2.default.array.isRequired,
+  updateSaved: _propTypes2.default.func.isRequired
 };
 
 exports.default = Results;

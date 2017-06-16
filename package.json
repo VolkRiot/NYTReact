@@ -6,7 +6,7 @@
   "author": "Mikhail Metrikin <metrikin@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=production nodemon -e js,jsx --exec babel-node src/server",
+    "start": "cross-env NODE_ENV=development nodemon -e js,jsx --exec babel-node src/server",
     "prod:start": "node dist/server",
     "prod:build": "cross-env NODE_ENV=production rimraf dist/ && webpack && babel ./src --out-dir dist/ --ignore ./node_modules,./.eslintrc.json,./.babelrc,./npm-debug.log --copy-files",
     "dev:wds": "webpack-dev-server --progress",

@@ -27,6 +27,7 @@ Router.post('/saved', function (req, res) {
   var newArticle = new _Articles2.default(req.body);
   newArticle.save(function (err) {
     if (err) res.status(500).send('Error happended while saving your article');
+    res.status(200).send({ success: true });
   });
 });
 

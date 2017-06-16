@@ -40,9 +40,10 @@ var Search = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-    _this.state = { topic: '', startYr: '', endYr: '', results: [] };
+    _this.state = { topic: '', startYr: '', endYr: '', results: [], saved: [] };
 
     _this.setSearch = _this.setSearch.bind(_this);
+    _this.setSaved = _this.setSaved.bind(_this);
     return _this;
   }
 
@@ -71,6 +72,13 @@ var Search = function (_Component) {
       this.setState(args);
     }
   }, {
+    key: 'setSaved',
+    value: function setSaved(args) {
+      var newState = this.state;
+      newState.saved = args;
+      this.setState(newState);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -91,7 +99,10 @@ var Search = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-12' },
-            _react2.default.createElement(_Results2.default, { results: this.state.results })
+            _react2.default.createElement(_Results2.default, {
+              results: this.state.results,
+              updateSaved: this.setSaved
+            })
           )
         )
       );

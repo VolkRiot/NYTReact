@@ -14,6 +14,7 @@ Router.post('/saved', (req, res) => {
   const newArticle = new Article(req.body);
   newArticle.save((err) => {
     if (err) res.status(500).send('Error happended while saving your article');
+    res.status(200).send({ success: true });
   });
 });
 

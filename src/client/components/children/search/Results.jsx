@@ -17,7 +17,13 @@ class Results extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleClick(article) {
-    ApiHelper.saveArticle(article);
+    ApiHelper.saveArticle(article).then((resp) => {
+      if (resp.data.success) {
+        ApiHelper.getSaved().then((answ) => {
+          this.props.updateSaved(answ.data);
+        });
+      }
+    });
   }
 
   render() {
@@ -70,6 +76,7 @@ class Results extends Component {
 
 Results.propTypes = {
   results: PropTypes.array.isRequired,
+  updateSaved: PropTypes.func.isRequired,
 };
 
 export default Results;
