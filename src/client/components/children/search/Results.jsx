@@ -29,11 +29,13 @@ class Results extends Component {
   render() {
     if (this.state.results.length === 0) {
       return (
-        <li className="list-group-item">
-          <h3>
-            <span><em>Search for articles to begin.</em></span>
-          </h3>
-        </li>
+        <div style={{ marginBottom: '1em' }}>
+          <li className="list-group-item">
+            <h3>
+              <span><em>Search for articles to begin.</em></span>
+            </h3>
+          </li>
+        </div>
       );
     }
 
