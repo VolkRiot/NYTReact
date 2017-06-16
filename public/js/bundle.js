@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "34b1ba50598619e85e06"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0453b12d0b8ebf43a1ab"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -37916,8 +37916,8 @@ var Saved = function (_Component) {
   }
 
   _createClass(Saved, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       var _this2 = this;
 
       NytHelper.getSaved().then(function (resp) {
