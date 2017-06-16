@@ -9,7 +9,7 @@ class Saved extends Component {
     this.state = { savedArticles: [] };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     NytHelper.getSaved().then((resp) => {
       this.setState({
         savedArticles: resp.data,
