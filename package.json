@@ -11,7 +11,7 @@
     "prod:build": "cross-env NODE_ENV=production rimraf dist/ && webpack && babel ./src --out-dir dist/ --ignore ./node_modules,./.eslintrc.json,./.babelrc,./npm-debug.log --copy-files",
     "dev:wds": "webpack-dev-server --progress",
     "test": "eslint src webpack.config.babel.js --ext .js,.jsx",
-    "precommit": "yarn prod:build && npm test",
+    "precommit": "npm test",
     "prepush": "npm test"
   },
   "devDependencies": {
