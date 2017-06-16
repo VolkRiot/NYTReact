@@ -12,7 +12,7 @@ Router.get('/saved', (req, res) => {
 
 Router.post('/saved', (req, res) => {
   const newArticle = new Article(req.body);
-  newArticle.save((err, doc) => {
+  newArticle.save((err) => {
     if (err) res.status(500).send('Error happended while saving your article');
   });
 });

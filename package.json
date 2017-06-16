@@ -6,10 +6,12 @@
   "author": "Mikhail Metrikin <metrikin@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -e js,jsx --exec babel-node src/server",
+    "start": "cross-env NODE_ENV=production nodemon -e js,jsx --exec babel-node src/server",
+    "prod:start": "node dist/server",
+    "prod:build": "cross-env NODE_ENV=production rimraf dist/ && webpack && babel ./src --out-dir dist/ --ignore ./node_modules,./.eslintrc.json,./.babelrc,./npm-debug.log --copy-files",
     "dev:wds": "webpack-dev-server --progress",
     "test": "eslint src webpack.config.babel.js --ext .js,.jsx",
-    "precommit": "npm test",
+    "precommit": "yarn prod:build && npm test",
     "prepush": "npm test"
   },
   "devDependencies": {
@@ -17,6 +19,7 @@
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",
@@ -24,6 +27,7 @@
     "eslint-plugin-react": "^7.0.1",
     "husky": "^0.13.4",
     "nodemon": "^1.11.0",
+    "rimraf": "^2.6.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
