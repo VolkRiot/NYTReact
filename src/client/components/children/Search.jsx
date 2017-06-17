@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Query from './search/Query';
 import NYTApi from '../../utils/helpers';
 import Results from './search/Results';
@@ -63,5 +64,10 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  socket: PropTypes.object.isRequired,
+};
 
 export default Search;

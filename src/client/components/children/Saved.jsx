@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NYTApi from '../../utils/helpers';
 
 const NytHelper = new NYTApi();
@@ -7,11 +8,12 @@ class Saved extends Component {
   constructor(props) {
     super(props);
     this.state = { savedArticles: [] };
-    this.props.socket.on('update_saved', (docs) => {
+    const socket = this.props.socket;
+    socket.on('update_saved', (docs) => {
       this.setState({
         savedArticles: docs,
       });
-    })
+    });
   }
 
   componentWillMount() {
@@ -82,5 +84,10 @@ class Saved extends Component {
     );
   }
 }
+
+Saved.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  socket: PropTypes.object.isRequired,
+};
 
 export default Saved;
