@@ -24,7 +24,7 @@ class Main extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Route component={Saved} />
+              <Route component={() => (<Saved socket={socket} />)} />
             </div>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
 import NYTApi from '../../utils/helpers';
 
 const NytHelper = new NYTApi();
@@ -8,6 +7,11 @@ class Saved extends Component {
   constructor(props) {
     super(props);
     this.state = { savedArticles: [] };
+    this.props.socket.on('update_saved', (docs) => {
+      this.setState({
+        savedArticles: docs,
+      });
+    })
   }
 
   componentWillMount() {
