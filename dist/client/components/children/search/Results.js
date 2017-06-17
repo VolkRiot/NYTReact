@@ -56,6 +56,7 @@ var Results = function (_Component) {
 
       ApiHelper.saveArticle(article).then(function (resp) {
         if (resp.data.success) {
+          _this2.props.socket.emit('new_saved');
           ApiHelper.getSaved().then(function (answ) {
             _this2.props.updateSaved(answ.data);
           });
@@ -69,18 +70,22 @@ var Results = function (_Component) {
 
       if (this.state.results.length === 0) {
         return _react2.default.createElement(
-          'li',
-          { className: 'list-group-item' },
+          'div',
+          { style: { marginBottom: '1em' } },
           _react2.default.createElement(
-            'h3',
-            null,
+            'li',
+            { className: 'list-group-item' },
             _react2.default.createElement(
-              'span',
+              'h3',
               null,
               _react2.default.createElement(
-                'em',
+                'span',
                 null,
-                'Search for articles to begin.'
+                _react2.default.createElement(
+                  'em',
+                  null,
+                  'Search for articles to begin.'
+                )
               )
             )
           )
@@ -175,7 +180,8 @@ var Results = function (_Component) {
 
 Results.propTypes = {
   results: _propTypes2.default.array.isRequired,
-  updateSaved: _propTypes2.default.func.isRequired
+  updateSaved: _propTypes2.default.func.isRequired,
+  socket: _propTypes2.default.object.isRequired
 };
 
 exports.default = Results;

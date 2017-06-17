@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _helpers = require('../../utils/helpers');
 
 var _helpers2 = _interopRequireDefault(_helpers);
@@ -33,6 +37,12 @@ var Saved = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Saved.__proto__ || Object.getPrototypeOf(Saved)).call(this, props));
 
     _this.state = { savedArticles: [] };
+    _this.socket = _this.props.socket;
+    _this.socket.on('update_saved', function (docs) {
+      _this.setState({
+        savedArticles: docs
+      });
+    });
     return _this;
   }
 
@@ -56,6 +66,7 @@ var Saved = function (_Component) {
       NytHelper.delete(article._id).then(function (resp) {
         if (resp.data.success) {
           NytHelper.getSaved().then(function (answ) {
+            _this3.socket.emit('new_saved');
             _this3.setState({
               savedArticles: answ.data
             });
@@ -173,5 +184,10 @@ var Saved = function (_Component) {
 
   return Saved;
 }(_react.Component);
+
+Saved.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  socket: _propTypes2.default.object.isRequired
+};
 
 exports.default = Saved;

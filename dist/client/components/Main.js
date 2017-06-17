@@ -12,6 +12,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _socket = require('socket.io-client');
+
+var _socket2 = _interopRequireDefault(_socket);
+
 var _Search = require('./children/Search');
 
 var _Search2 = _interopRequireDefault(_Search);
@@ -28,6 +32,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/prefer-stateless-function */
 
+
+var socket = (0, _socket2.default)();
 
 var Main = function (_Component) {
   _inherits(Main, _Component);
@@ -63,7 +69,9 @@ var Main = function (_Component) {
             'Search for Articles in the NYT Api and save them to a Mongo database'
           )
         ),
-        _react2.default.createElement(_reactRouter.Route, { exact: true, path: '/', component: _Search2.default }),
+        _react2.default.createElement(_reactRouter.Route, { component: function component() {
+            return _react2.default.createElement(_Search2.default, { socket: socket });
+          } }),
         _react2.default.createElement(
           'div',
           { className: 'container' },
@@ -73,7 +81,9 @@ var Main = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'col-lg-12' },
-              _react2.default.createElement(_reactRouter.Route, { exact: true, path: '/', component: _Saved2.default })
+              _react2.default.createElement(_reactRouter.Route, { component: function component() {
+                  return _react2.default.createElement(_Saved2.default, { socket: socket });
+                } })
             )
           )
         )

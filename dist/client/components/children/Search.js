@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Query = require('./search/Query');
 
 var _Query2 = _interopRequireDefault(_Query);
@@ -101,7 +105,8 @@ var Search = function (_Component) {
             { className: 'col-md-12' },
             _react2.default.createElement(_Results2.default, {
               results: this.state.results,
-              updateSaved: this.setSaved
+              updateSaved: this.setSaved,
+              socket: this.props.socket
             })
           )
         )
@@ -111,5 +116,10 @@ var Search = function (_Component) {
 
   return Search;
 }(_react.Component);
+
+Search.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  socket: _propTypes2.default.object.isRequired
+};
 
 exports.default = Search;
