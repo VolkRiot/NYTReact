@@ -8,8 +8,8 @@ class Saved extends Component {
   constructor(props) {
     super(props);
     this.state = { savedArticles: [] };
-    const socket = this.props.socket;
-    socket.on('update_saved', (docs) => {
+    this.socket = this.props.socket;
+    this.socket.on('update_saved', (docs) => {
       this.setState({
         savedArticles: docs,
       });
@@ -29,6 +29,7 @@ class Saved extends Component {
     NytHelper.delete(article._id).then((resp) => {
       if (resp.data.success) {
         NytHelper.getSaved().then((answ) => {
+          this.socket.emit('new_saved');
           this.setState({
             savedArticles: answ.data,
           });
