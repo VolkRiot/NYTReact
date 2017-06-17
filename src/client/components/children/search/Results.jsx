@@ -1,8 +1,10 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client';
 import NYTApi from '../../../utils/helpers';
 
+const socket = io('http://localhost:8080/:*');
 const ApiHelper = new NYTApi();
 
 class Results extends Component {
@@ -19,6 +21,7 @@ class Results extends Component {
   handleClick(article) {
     ApiHelper.saveArticle(article).then((resp) => {
       if (resp.data.success) {
+        socket.emit('new_saved', { saved: true });
         ApiHelper.getSaved().then((answ) => {
           this.props.updateSaved(answ.data);
         });

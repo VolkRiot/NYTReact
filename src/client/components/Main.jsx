@@ -17,11 +17,11 @@ class Main extends Component {
             Search for Articles in the NYT Api and save them to a Mongo database
           </p>
         </div>
-        <Route exact path="/" component={Search} />
+        <Route component={Search} />
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Route exact path="/" component={Saved} />
+              <Route component={Saved} />
             </div>
           </div>
         </div>

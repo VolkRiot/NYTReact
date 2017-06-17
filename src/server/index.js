@@ -1,6 +1,7 @@
 /* eslint-disable no-console*/
 import 'babel-polyfill';
 import express from 'express';
+import { Server } from 'http';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import path from 'path';
@@ -12,8 +13,22 @@ mongoose.Promise = Promise;
 
 const PORT = process.env.PORT || '8080';
 
-// Load Express and all Routes created
+// Load Express and Socket.IO + events
 const app = express();
+const http = Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+io.on('new_saved', () => {
+  console.log('Something new was just saved!');
+});
 
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI);
@@ -58,7 +73,7 @@ process.on('SIGINT', () => {
   });
 });
 
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log(`Server started and listening on port: ${PORT}. Run and keep process "yarn
     dev:wds" running in seperate terminal`);
 });
