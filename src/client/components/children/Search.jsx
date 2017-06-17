@@ -55,6 +55,7 @@ class Search extends Component {
             <Results
               results={this.state.results}
               updateSaved={this.setSaved}
+              socket={this.props.socket}
             />
           </div>
         </div>

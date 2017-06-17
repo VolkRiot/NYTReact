@@ -1,8 +1,11 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { Route } from 'react-router';
+import io from 'socket.io-client';
 import Search from './children/Search';
 import Saved from './children/Saved';
+
+const socket = io();
 
 class Main extends Component {
   render() {
@@ -17,7 +20,7 @@ class Main extends Component {
             Search for Articles in the NYT Api and save them to a Mongo database
           </p>
         </div>
-        <Route component={Search} />
+        <Route component={() => (<Search socket={socket} />)} />
         <div className="container">
           <div className="row">
             <div className="col-lg-12">

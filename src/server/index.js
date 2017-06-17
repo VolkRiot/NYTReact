@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import path from 'path';
 import mongoose from 'mongoose';
+import Article from './models/Articles';
 import renderApp from './views/render-app';
 import routes from './routes';
 
@@ -24,10 +25,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-});
 
-io.on('new_saved', () => {
-  console.log('Something new was just saved!');
+  socket.on('new_saved', () => {
+    Article.find({}).exec((err, doc) => {
+      if (!err) {
+        io.emit('update_saved', doc);
+      }
+    });
+  });
 });
 
 if (process.env.MONGODB_URI) {
