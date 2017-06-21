@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class NYTApi {
   constructor() {
-    this.API_KEY = process.env.NYT_API;
+    this.API_KEY = String(process.env.NYT_API);
     this.axios = axios;
   }
 
