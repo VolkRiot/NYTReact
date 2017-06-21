@@ -44,7 +44,15 @@ var Search = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-    _this.state = { topic: '', startYr: '', endYr: '', results: [], saved: [] };
+    _this.state = {
+      search: {
+        topic: '',
+        startYr: '',
+        endYr: ''
+      },
+      results: [],
+      saved: []
+    };
 
     _this.setSearch = _this.setSearch.bind(_this);
     _this.setSaved = _this.setSaved.bind(_this);
@@ -56,31 +64,25 @@ var Search = function (_Component) {
     value: function componentDidUpdate() {
       var _this2 = this;
 
-      var newSearch = {
-        term: this.state.topic,
-        start: this.state.startYr,
-        end: this.state.endYr
-      };
+      var newSearch = this.state.search;
 
-      ApiHelper.runQuery(newSearch).then(function (resp) {
+      ApiHelper.runQuery(newSearch.topic, newSearch.startYr, newSearch.endYr).then(function (resp) {
         var newArticles = resp.data.response.docs;
         _this2.setState({ results: newArticles });
       }).catch(function (err) {
         // eslint-disable-next-line no-console
-        console.log('Error happend', err);
+        console.log('Error happened', err);
       });
     }
   }, {
     key: 'setSearch',
     value: function setSearch(args) {
-      this.setState(args);
+      this.setState({ search: args });
     }
   }, {
     key: 'setSaved',
     value: function setSaved(args) {
-      var newState = this.state;
-      newState.saved = args;
-      this.setState(newState);
+      this.setState({ saved: args });
     }
   }, {
     key: 'render',

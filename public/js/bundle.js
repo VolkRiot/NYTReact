@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "554ae0742a6832b49a86"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6a2fdbac57c6e909103f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -45365,7 +45365,15 @@ var Search = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-    _this.state = { topic: '', startYr: '', endYr: '', results: [], saved: [] };
+    _this.state = {
+      search: {
+        topic: '',
+        startYr: '',
+        endYr: ''
+      },
+      results: [],
+      saved: []
+    };
 
     _this.setSearch = _this.setSearch.bind(_this);
     _this.setSaved = _this.setSaved.bind(_this);
@@ -45377,31 +45385,25 @@ var Search = function (_Component) {
     value: function componentDidUpdate() {
       var _this2 = this;
 
-      var newSearch = {
-        term: this.state.topic,
-        start: this.state.startYr,
-        end: this.state.endYr
-      };
+      var newSearch = this.state.search;
 
-      ApiHelper.runQuery(newSearch).then(function (resp) {
+      ApiHelper.runQuery(newSearch.topic, newSearch.startYr, newSearch.endYr).then(function (resp) {
         var newArticles = resp.data.response.docs;
         _this2.setState({ results: newArticles });
       }).catch(function (err) {
         // eslint-disable-next-line no-console
-        console.log('Error happend', err);
+        console.log('Error happened', err);
       });
     }
   }, {
     key: 'setSearch',
     value: function setSearch(args) {
-      this.setState(args);
+      this.setState({ search: args });
     }
   }, {
     key: 'setSaved',
     value: function setSaved(args) {
-      var newState = this.state;
-      newState.saved = args;
-      this.setState(newState);
+      this.setState({ saved: args });
     }
   }, {
     key: 'render',
@@ -45653,7 +45655,7 @@ var Results = function (_Component) {
     value: function handleClick(article) {
       var _this2 = this;
 
-      ApiHelper.saveArticle(article).then(function (resp) {
+      ApiHelper.saveArticle(article.headline.main, article.web_url).then(function (resp) {
         if (resp.data.success) {
           _this2.props.socket.emit('new_saved');
           ApiHelper.getSaved().then(function (answ) {
@@ -45870,7 +45872,7 @@ exports.default = Routes;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -45890,16 +45892,19 @@ var NYTApi = function () {
   function NYTApi() {
     _classCallCheck(this, NYTApi);
 
-    this.API_KEY = '3dbfbf1bb1034c4bb5e8901725645c29'; // '77e2b3f4961e4221abe3128890131cba';
+    this.API_KEY = process.env.NYT_API || '3dbfbf1bb1034c4bb5e8901725645c29';
     this.axios = _axios2.default;
   }
 
   _createClass(NYTApi, [{
     key: 'runQuery',
-    value: function runQuery(obj) {
-      var searchTerm = obj.term.trim();
-      var startYear = obj.start.trim() + '0101';
-      var toYear = obj.end.trim() + '1231';
+    value: function runQuery(topic) {
+      var startYr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2000;
+      var endYr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2017;
+
+      var searchTerm = topic.trim();
+      var startYear = startYr.trim() + '0101';
+      var toYear = endYr.trim() + '1231';
 
       return this.axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json', {
         params: {
@@ -45912,11 +45917,11 @@ var NYTApi = function () {
     }
   }, {
     key: 'saveArticle',
-    value: function saveArticle(article) {
+    value: function saveArticle(title, url) {
       var newArticle = {
-        title: article.headline.main,
+        title: title,
         date: new Date(),
-        url: article.web_url
+        url: url
       };
 
       return this.axios.post('/api/saved', newArticle);
@@ -45937,6 +45942,7 @@ var NYTApi = function () {
 }();
 
 exports.default = NYTApi;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 

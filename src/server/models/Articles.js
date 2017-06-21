@@ -14,6 +14,9 @@ const ArticleSchema = new Schema({
   url: {
     type: String,
     required: true,
+    index: {
+      unique: true,
+    },
   },
 });
 

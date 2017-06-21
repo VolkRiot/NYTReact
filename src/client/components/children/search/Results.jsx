@@ -17,7 +17,7 @@ class Results extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleClick(article) {
-    ApiHelper.saveArticle(article).then((resp) => {
+    ApiHelper.saveArticle(article.headline.main, article.web_url).then((resp) => {
       if (resp.data.success) {
         this.props.socket.emit('new_saved');
         ApiHelper.getSaved().then((answ) => {

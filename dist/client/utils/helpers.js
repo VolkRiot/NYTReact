@@ -18,16 +18,19 @@ var NYTApi = function () {
   function NYTApi() {
     _classCallCheck(this, NYTApi);
 
-    this.API_KEY = '3dbfbf1bb1034c4bb5e8901725645c29'; // '77e2b3f4961e4221abe3128890131cba';
+    this.API_KEY = process.env.NYT_API || '3dbfbf1bb1034c4bb5e8901725645c29';
     this.axios = _axios2.default;
   }
 
   _createClass(NYTApi, [{
     key: 'runQuery',
-    value: function runQuery(obj) {
-      var searchTerm = obj.term.trim();
-      var startYear = obj.start.trim() + '0101';
-      var toYear = obj.end.trim() + '1231';
+    value: function runQuery(topic) {
+      var startYr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2000;
+      var endYr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2017;
+
+      var searchTerm = topic.trim();
+      var startYear = startYr.trim() + '0101';
+      var toYear = endYr.trim() + '1231';
 
       return this.axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json', {
         params: {
@@ -40,11 +43,11 @@ var NYTApi = function () {
     }
   }, {
     key: 'saveArticle',
-    value: function saveArticle(article) {
+    value: function saveArticle(title, url) {
       var newArticle = {
-        title: article.headline.main,
+        title: title,
         date: new Date(),
-        url: article.web_url
+        url: url
       };
 
       return this.axios.post('/api/saved', newArticle);

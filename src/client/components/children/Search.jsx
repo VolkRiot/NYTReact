@@ -9,38 +9,40 @@ const ApiHelper = new NYTApi();
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = { topic: '', startYr: '', endYr: '', results: [], saved: [] };
+    this.state = {
+      search: {
+        topic: '',
+        startYr: '',
+        endYr: '',
+      },
+      results: [],
+      saved: [],
+    };
 
     this.setSearch = this.setSearch.bind(this);
     this.setSaved = this.setSaved.bind(this);
   }
 
   componentDidUpdate() {
-    const newSearch = {
-      term: this.state.topic,
-      start: this.state.startYr,
-      end: this.state.endYr,
-    };
+    const newSearch = this.state.search;
 
-    ApiHelper.runQuery(newSearch)
+    ApiHelper.runQuery(newSearch.topic, newSearch.startYr, newSearch.endYr)
       .then((resp) => {
         const newArticles = resp.data.response.docs;
         this.setState({ results: newArticles });
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
-        console.log('Error happend', err);
+        console.log('Error happened', err);
       });
   }
 
   setSearch(args) {
-    this.setState(args);
+    this.setState({ search: args });
   }
 
   setSaved(args) {
-    const newState = this.state;
-    newState.saved = args;
-    this.setState(newState);
+    this.setState({ saved: args });
   }
 
   render() {

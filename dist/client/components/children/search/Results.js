@@ -54,7 +54,7 @@ var Results = function (_Component) {
     value: function handleClick(article) {
       var _this2 = this;
 
-      ApiHelper.saveArticle(article).then(function (resp) {
+      ApiHelper.saveArticle(article.headline.main, article.web_url).then(function (resp) {
         if (resp.data.success) {
           _this2.props.socket.emit('new_saved');
           ApiHelper.getSaved().then(function (answ) {
