@@ -18,7 +18,7 @@ var NYTApi = function () {
   function NYTApi() {
     _classCallCheck(this, NYTApi);
 
-    this.API_KEY = process.env.NYT_API || '3dbfbf1bb1034c4bb5e8901725645c29';
+    this.API_KEY = process.env.NYT_API;
     this.axios = _axios2.default;
   }
 

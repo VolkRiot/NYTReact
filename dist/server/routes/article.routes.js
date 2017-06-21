@@ -18,8 +18,11 @@ var Router = _express2.default.Router();
 
 Router.get('/saved', function (req, res) {
   _Articles2.default.find({}).exec(function (err, doc) {
-    if (err) res.status(500).send('Error while retrieving your durned Articles');
-    res.status(200).send(doc);
+    if (err) {
+      res.status(500).send('Error while retrieving your durned Articles');
+    } else {
+      res.status(200).send(doc);
+    }
   });
 });
 
@@ -36,8 +39,11 @@ Router.post('/saved', function (req, res) {
 
 Router.delete('/saved', function (req, res) {
   _Articles2.default.findByIdAndRemove(req.query.id).then(function (resp, err) {
-    if (err) res.status(500).send('Failed to remove this record');
-    res.status(200).send({ success: true });
+    if (err) {
+      res.status(500).send('Failed to remove this record');
+    } else {
+      res.status(200).send({ success: true });
+    }
   });
 });
 
