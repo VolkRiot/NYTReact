@@ -63,7 +63,7 @@ var Saved = function (_Component) {
       var _this3 = this;
 
       // eslint-disable-next-line no-underscore-dangle
-      NytHelper.delete(article._id).then(function (resp) {
+      NytHelper.deleteArticle(article._id).then(function (resp) {
         if (resp.data.success) {
           NytHelper.getSaved().then(function (answ) {
             _this3.socket.emit('new_saved');
