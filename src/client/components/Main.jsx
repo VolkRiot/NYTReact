@@ -33,7 +33,13 @@ class Main extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Route component={() => <Saved socket={socket} />} />
+              <Route component={() =>
+                <Saved
+                socket={socket}
+                actions={this.props.actions}
+                saved={this.props.saved}
+                />}
+              />
             </div>
           </div>
         </div>
@@ -45,6 +51,7 @@ class Main extends Component {
 const mapStateToProps = state => ({
   search: state.search,
   results: state.results,
+  saved: state.saved,
 });
 
 const mapDispatchToProps = dispatch => ({

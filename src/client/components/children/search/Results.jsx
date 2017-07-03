@@ -6,13 +6,6 @@ import NYTApi from '../../../utils/helpers';
 const ApiHelper = new NYTApi();
 
 class Results extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  componentWillReceiveProps(nextProps) {
-    // this.setState({ results: nextProps.results });
-  }
 
   // eslint-disable-next-line class-methods-use-this
   handleClick(article) {
@@ -78,7 +71,6 @@ class Results extends Component {
 
 Results.propTypes = {
   results: PropTypes.array.isRequired,
-  updateSaved: PropTypes.func.isRequired,
   socket: PropTypes.object.isRequired,
 };
 

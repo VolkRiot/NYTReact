@@ -7,7 +7,7 @@ const NytHelper = new NYTApi();
 class Saved extends Component {
   constructor(props) {
     super(props);
-    this.state = { savedArticles: [] };
+    console.log("Saved component is current at ", props);
     this.socket = this.props.socket;
     this.socket.on('update_saved', (docs) => {
       this.setState({
@@ -16,13 +16,9 @@ class Saved extends Component {
     });
   }
 
-  componentWillMount() {
-    NytHelper.getSaved().then((resp) => {
-      this.setState({
-        savedArticles: resp.data,
-      });
-    });
-  }
+  // componentDidMount() {
+  //   this.props.actions.getSaved();
+  // }
 
   handleClick(article) {
     // eslint-disable-next-line no-underscore-dangle
@@ -39,7 +35,7 @@ class Saved extends Component {
   }
 
   render() {
-    if (this.state.savedArticles.length === 0) {
+    if (this.props.saved.length === 0) {
       return (
         <li className="list-group-item">
           <h3>
@@ -49,7 +45,7 @@ class Saved extends Component {
       );
     }
 
-    const articles = this.state.savedArticles.map(article =>
+    const articles = this.props.saved.map(article =>
       // eslint-disable-next-line no-underscore-dangle
       (<div key={article._id}>
         <li className="list-group-item">
