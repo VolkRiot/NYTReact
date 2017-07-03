@@ -1,9 +1,11 @@
 /* eslint-disable react/prefer-stateless-function */
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import Search from './children/Search';
 import Saved from './children/Saved';
@@ -14,8 +16,6 @@ const socket = io();
 
 class Main extends Component {
   render() {
-    console.log('Main props are currently ', this.props);
-
     return (
       <div className="main-container">
         <div className="jumbotron text-center">
@@ -34,11 +34,11 @@ class Main extends Component {
           <div className="row">
             <div className="col-lg-12">
               <Route component={() =>
-                <Saved
-                socket={socket}
-                actions={this.props.actions}
-                saved={this.props.saved}
-                />}
+                (<Saved
+                  socket={socket}
+                  actions={this.props.actions}
+                  saved={this.props.saved}
+                />)}
               />
             </div>
           </div>
@@ -47,6 +47,14 @@ class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  actions: PropTypes.object.isRequired,
+  changeTerm: PropTypes.func.isRequired,
+  search: PropTypes.object.isRequired,
+  saved: PropTypes.array.isRequired,
+  results: PropTypes.array.isRequired,
+};
 
 const mapStateToProps = state => ({
   search: state.search,

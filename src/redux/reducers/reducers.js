@@ -1,9 +1,9 @@
 import { CHANGE_SEARCH_TERM, CHANGE_START_YEAR, CHANGE_END_YEAR } from '../actions';
 
 const startState = {
-  topic: 'Obama',
-  startYr: '2007',
-  endYr: '2009',
+  topic: '',
+  startYr: '',
+  endYr: '',
 };
 
 const changeSearch = (state = startState, action) => {

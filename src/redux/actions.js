@@ -65,12 +65,3 @@ export const saveNewArticle = (headline, url) => {
     payload: newList,
   };
 };
-
-// ApiHelper.saveArticle(article.headline.main, article.web_url).then((resp) => {
-//   if (resp.data.success) {
-//     this.props.socket.emit('new_saved');
-//     ApiHelper.getSaved().then((answ) => {
-//       this.props.updateSaved(answ.data);
-//     });
-//   }
-// });

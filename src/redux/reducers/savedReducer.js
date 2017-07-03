@@ -1,7 +1,5 @@
 import { GET_SAVED, DELETE_ONE_SAVED, SAVE_NEW } from '../actions';
 
-const startState = [];
-
 const getSavedReducer = (state = [], action) => {
   switch (action.type) {
     case GET_SAVED:
