@@ -10,15 +10,16 @@ class Saved extends Component {
     console.log("Saved component is current at ", props);
     this.socket = this.props.socket;
     this.socket.on('update_saved', (docs) => {
-      this.setState({
-        savedArticles: docs,
-      });
+      this.props.actions.getSaved();
     });
   }
 
-  // componentDidMount() {
-  //   this.props.actions.getSaved();
-  // }
+  componentDidMount() {
+    // TODO: Not happy with this as a solution for init mount
+    if (this.props.saved.length <= 0) {
+      this.props.actions.getSaved();
+    }
+  }
 
   handleClick(article) {
     // eslint-disable-next-line no-underscore-dangle
