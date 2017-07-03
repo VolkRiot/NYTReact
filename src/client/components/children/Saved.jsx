@@ -1,15 +1,12 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NYTApi from '../../utils/helpers';
-
-const NytHelper = new NYTApi();
 
 class Saved extends Component {
   constructor(props) {
     super(props);
-    console.log("Saved component is current at ", props);
     this.socket = this.props.socket;
-    this.socket.on('update_saved', (docs) => {
+    this.socket.on('update_saved', () => {
       this.props.actions.getSaved();
     });
     this.handleClick = this.handleClick.bind(this);
@@ -78,8 +75,9 @@ class Saved extends Component {
 }
 
 Saved.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   socket: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
+  saved: PropTypes.array.isRequired,
 };
 
 export default Saved;
