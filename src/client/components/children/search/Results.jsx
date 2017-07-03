@@ -1,9 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NYTApi from '../../../utils/helpers';
-
-const ApiHelper = new NYTApi();
 
 class Results extends Component {
   constructor(props) {
@@ -67,7 +64,7 @@ class Results extends Component {
 
 Results.propTypes = {
   results: PropTypes.array.isRequired,
-  socket: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 export default Results;

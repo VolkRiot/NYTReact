@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 class Saved extends Component {
   constructor(props) {
     super(props);
-    this.socket = this.props.socket;
-    this.socket.on('update_saved', () => {
+    this.props.socket.on('update_saved', () => {
       this.props.actions.getSaved();
     });
     this.handleClick = this.handleClick.bind(this);
