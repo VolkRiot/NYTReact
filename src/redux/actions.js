@@ -6,6 +6,7 @@ export const CHANGE_END_YEAR = 'CHANGE_END_YEAR';
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES';
 export const GET_SAVED = 'GET_SAVED';
 export const DELETE_ONE_SAVED = 'DELETE_ONE_SAVED';
+export const SAVE_NEW = 'SAVE_NEW';
 
 const ApiHelper = new NYTApi();
 
@@ -55,13 +56,21 @@ export const deleteSaved = (id) => {
   };
 };
 
-// NytHelper.deleteArticle(article._id).then((resp) => {
+export const saveNewArticle = (headline, url) => {
+  const newList = ApiHelper.saveArticle(headline, url).then(() =>
+    ApiHelper.getSaved().then(answ => answ.data),
+  );
+  return {
+    type: SAVE_NEW,
+    payload: newList,
+  };
+};
+
+// ApiHelper.saveArticle(article.headline.main, article.web_url).then((resp) => {
 //   if (resp.data.success) {
-//     NytHelper.getSaved().then((answ) => {
-//       this.socket.emit('new_saved');
-//       this.setState({
-//         savedArticles: answ.data,
-//       });
+//     this.props.socket.emit('new_saved');
+//     ApiHelper.getSaved().then((answ) => {
+//       this.props.updateSaved(answ.data);
 //     });
 //   }
 // });

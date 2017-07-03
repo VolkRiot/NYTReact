@@ -6,17 +6,13 @@ import NYTApi from '../../../utils/helpers';
 const ApiHelper = new NYTApi();
 
 class Results extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-  // eslint-disable-next-line class-methods-use-this
   handleClick(article) {
-    ApiHelper.saveArticle(article.headline.main, article.web_url).then((resp) => {
-      if (resp.data.success) {
-        this.props.socket.emit('new_saved');
-        ApiHelper.getSaved().then((answ) => {
-          this.props.updateSaved(answ.data);
-        });
-      }
-    });
+    this.props.actions.saveNewArticle(article.headline.main, article.web_url);
   }
 
   render() {

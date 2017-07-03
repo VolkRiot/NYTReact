@@ -27,17 +27,6 @@ class Saved extends Component {
   handleClick(article) {
     // eslint-disable-next-line no-underscore-dangle
     this.props.actions.deleteSaved(article._id);
-
-    // NytHelper.deleteArticle(article._id).then((resp) => {
-    //   if (resp.data.success) {
-    //     NytHelper.getSaved().then((answ) => {
-    //       this.socket.emit('new_saved');
-    //       this.setState({
-    //         savedArticles: answ.data,
-    //       });
-    //     });
-    //   }
-    // });
   }
 
   render() {

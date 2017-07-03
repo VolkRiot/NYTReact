@@ -39,6 +39,7 @@ class Search extends Component {
             <Results
               results={this.props.currentResults}
               socket={this.props.socket}
+              actions={this.props.actions}
             />
           </div>
         </div>
