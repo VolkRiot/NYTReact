@@ -1,4 +1,4 @@
-import { CHANGE_SEARCH_TERM, CHANGE_START_YEAR } from '../actions';
+import { CHANGE_SEARCH_TERM, CHANGE_START_YEAR, CHANGE_END_YEAR } from '../actions';
 
 const startState = {
   topic: 'Obama',
@@ -12,6 +12,8 @@ const changeSearch = (state = startState, action) => {
       return { ...state, topic: action.payload };
     case CHANGE_START_YEAR:
       return { ...state, startYr: action.payload };
+    case CHANGE_END_YEAR:
+      return { ...state, endYr: action.payload };
     default:
       return { ...state };
   }

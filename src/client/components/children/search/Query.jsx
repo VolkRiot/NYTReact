@@ -8,6 +8,8 @@ class Query extends Component {
     this.state = { topic: '', startYr: '', endYr: '' };
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
+    this.handleChangeStartYr = this.handleChangeStartYr.bind(this);
+    this.handleChangeEndYr = this.handleChangeEndYr.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -15,13 +17,13 @@ class Query extends Component {
     this.props.actions.changeTerm(e.target.value);
   }
 
-  // handleChangeStartYr(e) {
-  //   this.props.
-  // }
-  //
-  // handleChangeEndYr(e) {
-  //   this.props.
-  // }
+  handleChangeStartYr(e) {
+    this.props.actions.changeStartYr(e.target.value);
+  }
+
+  handleChangeEndYr(e) {
+    this.props.actions.changeEndYr(e.target.value);
+  }
 
   handleSubmit() {
     this.props.performSearch(this.state);
