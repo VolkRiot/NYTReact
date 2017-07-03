@@ -12,10 +12,13 @@ class Saved extends Component {
     this.socket.on('update_saved', (docs) => {
       this.props.actions.getSaved();
     });
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     // TODO: Not happy with this as a solution for init mount
+    // What id the databse is empty?
+    // Should really be an initializing call to the Db to set state.
     if (this.props.saved.length <= 0) {
       this.props.actions.getSaved();
     }
@@ -23,16 +26,18 @@ class Saved extends Component {
 
   handleClick(article) {
     // eslint-disable-next-line no-underscore-dangle
-    NytHelper.deleteArticle(article._id).then((resp) => {
-      if (resp.data.success) {
-        NytHelper.getSaved().then((answ) => {
-          this.socket.emit('new_saved');
-          this.setState({
-            savedArticles: answ.data,
-          });
-        });
-      }
-    });
+    this.props.actions.deleteSaved(article._id);
+
+    // NytHelper.deleteArticle(article._id).then((resp) => {
+    //   if (resp.data.success) {
+    //     NytHelper.getSaved().then((answ) => {
+    //       this.socket.emit('new_saved');
+    //       this.setState({
+    //         savedArticles: answ.data,
+    //       });
+    //     });
+    //   }
+    // });
   }
 
   render() {

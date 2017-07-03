@@ -5,6 +5,7 @@ export const CHANGE_START_YEAR = 'CHANGE_START_YEAR';
 export const CHANGE_END_YEAR = 'CHANGE_END_YEAR';
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES';
 export const GET_SAVED = 'GET_SAVED';
+export const DELETE_ONE_SAVED = 'DELETE_ONE_SAVED';
 
 const ApiHelper = new NYTApi();
 
@@ -42,3 +43,25 @@ export const getSaved = () => {
     payload: saved,
   };
 };
+
+export const deleteSaved = (id) => {
+  const updated = ApiHelper.deleteArticle(id).then(() =>
+     ApiHelper.getSaved().then(answ => answ.data),
+  );
+
+  return {
+    type: DELETE_ONE_SAVED,
+    payload: updated,
+  };
+};
+
+// NytHelper.deleteArticle(article._id).then((resp) => {
+//   if (resp.data.success) {
+//     NytHelper.getSaved().then((answ) => {
+//       this.socket.emit('new_saved');
+//       this.setState({
+//         savedArticles: answ.data,
+//       });
+//     });
+//   }
+// });
