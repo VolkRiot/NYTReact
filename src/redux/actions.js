@@ -23,11 +23,11 @@ export const changeEndYr = (year = null) => ({
 });
 
 export const requestArticles = ({ topic, startYr, endYr }) => {
-  ApiHelper.runQuery(topic, startYr, endYr).then((resp) => {
-    const newArticles = resp.data.response.docs;
-    return {
-      type: REQUEST_ARTICLES,
-      payload: [] || newArticles,
-    };
-  });
+  const newArticles = ApiHelper.runQuery(topic, startYr, endYr)
+  .then(resp => resp.data.response.docs);
+
+  return {
+    type: REQUEST_ARTICLES,
+    payload: newArticles,
+  };
 };

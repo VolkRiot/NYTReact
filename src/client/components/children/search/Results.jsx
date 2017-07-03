@@ -6,13 +6,12 @@ import NYTApi from '../../../utils/helpers';
 const ApiHelper = new NYTApi();
 
 class Results extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { results: [] };
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ results: nextProps.results });
+    // this.setState({ results: nextProps.results });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -28,7 +27,7 @@ class Results extends Component {
   }
 
   render() {
-    if (this.state.results.length === 0) {
+    if (this.props.results.length === 0) {
       return (
         <div style={{ marginBottom: '1em' }}>
           <li className="list-group-item">
@@ -40,7 +39,7 @@ class Results extends Component {
       );
     }
 
-    const articles = this.state.results.map(article =>
+    const articles = this.props.results.map(article =>
       //  eslint-disable-next-line no-underscore-dangle
       (<div key={article._id}>
         <li className="list-group-item">

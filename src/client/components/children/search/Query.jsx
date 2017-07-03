@@ -1,12 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Query extends Component {
   constructor(props) {
     super(props);
-    console.log('Properties passes to Quesry form ', props);
-    this.state = { topic: '', startYr: '', endYr: '' };
-
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleChangeStartYr = this.handleChangeStartYr.bind(this);
     this.handleChangeEndYr = this.handleChangeEndYr.bind(this);
@@ -26,7 +24,7 @@ class Query extends Component {
   }
 
   handleSubmit() {
-    this.props.performSearch(this.state);
+    this.props.actions.requestArticles(this.props.search);
   }
 
   render() {
@@ -36,7 +34,7 @@ class Query extends Component {
           <h3 className="panel-title text-center">Search</h3>
         </div>
         <div className="panel-body">
-          <form>
+          <form autoComplete="on">
             <div className="form-group">
               <h4 className="">Topic</h4>
 
@@ -60,7 +58,8 @@ class Query extends Component {
               <h4 className="">End Year (Required)</h4>
               <input
                 value={this.props.search.endYr}
-                className="form-control "
+                className="form-control"
+                type="text"
                 id="endYr"
                 onChange={this.handleChangeEndYr}
                 required
@@ -80,7 +79,8 @@ class Query extends Component {
 }
 
 Query.propTypes = {
-  performSearch: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
+  search: PropTypes.object.isRequired,
 };
 
 export default Query;

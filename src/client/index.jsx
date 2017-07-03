@@ -3,13 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import ReduxPromise from 'redux-promise';
 import reducedTotal from '../redux/reducers';
 import Routes from './routes';
 
 const store = createStore(
   reducedTotal,
-  window.devToolsExtension ? window.devToolsExtension() : undefined,
+  compose(
+    applyMiddleware(ReduxPromise),
+    window.devToolsExtension ? window.devToolsExtension() : undefined,
+  ),
 );
 
 // Hot module reload wrapper
