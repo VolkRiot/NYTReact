@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Query from './search/Query';
-import NYTApi from '../../utils/helpers';
 import Results from './search/Results';
-
-const ApiHelper = new NYTApi();
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: {
-        topic: '',
-        startYr: '',
-        endYr: '',
-      },
-      results: [],
+      search: props.search,
+      results: props.currentResults,
       saved: [],
     };
 
@@ -24,21 +17,21 @@ class Search extends Component {
   }
 
   componentDidUpdate() {
-    const newSearch = this.state.search;
-
-    ApiHelper.runQuery(newSearch.topic, newSearch.startYr, newSearch.endYr)
-      .then((resp) => {
-        const newArticles = resp.data.response.docs;
-        this.setState({ results: newArticles });
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log('Error happened', err);
-      });
+    // const newSearch = this.state.search;
+    //
+    // ApiHelper.runQuery(newSearch.topic, newSearch.startYr, newSearch.endYr)
+    //   .then((resp) => {
+    //     const newArticles = resp.data.response.docs;
+    //     this.setState({ results: newArticles });
+    //   })
+    //   .catch((err) => {
+    //     // eslint-disable-next-line no-console
+    //     console.log('Error happened', err);
+    //   });
   }
 
   setSearch(args) {
-    this.setState({ search: args });
+    this.props.handleChange( args );
   }
 
   setSaved(args) {
@@ -46,11 +39,16 @@ class Search extends Component {
   }
 
   render() {
+    console.log('Search props are ', this.props)
     return (
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <Query performSearch={this.setSearch} />
+            <Query
+              search={this.props.currentParams}
+              performSearch={this.setSearch}
+              actions={this.props.actions}
+            />
           </div>
         </div>
         <div className="row">

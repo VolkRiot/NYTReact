@@ -4,15 +4,24 @@ import PropTypes from 'prop-types';
 class Query extends Component {
   constructor(props) {
     super(props);
+    console.log('Properties passes to Quesry form ', props);
     this.state = { topic: '', startYr: '', endYr: '' };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({ [e.target.id]: e.target.value });
+  handleChangeSearch(e) {
+    this.props.actions.changeTerm(e.target.value);
   }
+
+  // handleChangeStartYr(e) {
+  //   this.props.
+  // }
+  //
+  // handleChangeEndYr(e) {
+  //   this.props.
+  // }
 
   handleSubmit() {
     this.props.performSearch(this.state);
@@ -26,36 +35,34 @@ class Query extends Component {
         </div>
         <div className="panel-body">
           <form>
-
             <div className="form-group">
               <h4 className="">Topic</h4>
 
               <input
                 type="text"
-                value={this.state.topic}
+                value={this.props.search.topic}
                 className="form-control "
                 id="topic"
-                onChange={this.handleChange}
+                onChange={this.handleChangeSearch}
               />
 
               <h4 className="">Start Year (Required)</h4>
               <input
-                value={this.state.startYr}
+                value={this.props.search.startYr}
                 className="form-control "
                 id="startYr"
-                onChange={this.handleChange}
+                onChange={this.handleChangeStartYr}
                 required
               />
 
               <h4 className="">End Year (Required)</h4>
               <input
-                value={this.state.endYr}
+                value={this.props.search.endYr}
                 className="form-control "
                 id="endYr"
-                onChange={this.handleChange}
+                onChange={this.handleChangeEndYr}
                 required
               />
-
             </div>
 
             <div className="pull-right">
