@@ -14,19 +14,14 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _helpers = require('../../utils/helpers');
-
-var _helpers2 = _interopRequireDefault(_helpers);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/forbid-prop-types */
 
-var NytHelper = new _helpers2.default();
 
 var Saved = function (_Component) {
   _inherits(Saved, _Component);
@@ -36,50 +31,35 @@ var Saved = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Saved.__proto__ || Object.getPrototypeOf(Saved)).call(this, props));
 
-    _this.state = { savedArticles: [] };
-    _this.socket = _this.props.socket;
-    _this.socket.on('update_saved', function (docs) {
-      _this.setState({
-        savedArticles: docs
-      });
+    _this.props.socket.on('update_saved', function () {
+      _this.props.actions.getSaved();
     });
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
 
   _createClass(Saved, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
-
-      NytHelper.getSaved().then(function (resp) {
-        _this2.setState({
-          savedArticles: resp.data
-        });
-      });
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      // TODO: Not happy with this as a solution for init mount
+      // What id the databse is empty?
+      // Should really be an initializing call to the Db to set state.
+      if (this.props.saved.length <= 0) {
+        this.props.actions.getSaved();
+      }
     }
   }, {
     key: 'handleClick',
     value: function handleClick(article) {
-      var _this3 = this;
-
       // eslint-disable-next-line no-underscore-dangle
-      NytHelper.deleteArticle(article._id).then(function (resp) {
-        if (resp.data.success) {
-          NytHelper.getSaved().then(function (answ) {
-            _this3.socket.emit('new_saved');
-            _this3.setState({
-              savedArticles: answ.data
-            });
-          });
-        }
-      });
+      this.props.actions.deleteSaved(article._id);
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this2 = this;
 
-      if (this.state.savedArticles.length === 0) {
+      if (this.props.saved.length === 0) {
         return _react2.default.createElement(
           'li',
           { className: 'list-group-item' },
@@ -99,7 +79,7 @@ var Saved = function (_Component) {
         );
       }
 
-      var articles = this.state.savedArticles.map(function (article) {
+      var articles = this.props.saved.map(function (article) {
         return (
           // eslint-disable-next-line no-underscore-dangle
           _react2.default.createElement(
@@ -135,7 +115,7 @@ var Saved = function (_Component) {
                   _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: function onClick() {
-                        return _this4.handleClick(article);
+                        return _this2.handleClick(article);
                       } },
                     'Delete'
                   )
@@ -186,8 +166,9 @@ var Saved = function (_Component) {
 }(_react.Component);
 
 Saved.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  socket: _propTypes2.default.object.isRequired
+  socket: _propTypes2.default.object.isRequired,
+  actions: _propTypes2.default.object.isRequired,
+  saved: _propTypes2.default.array.isRequired
 };
 
 exports.default = Saved;

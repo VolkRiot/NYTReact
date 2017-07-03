@@ -14,10 +14,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _helpers = require('../../../utils/helpers');
-
-var _helpers2 = _interopRequireDefault(_helpers);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27,8 +23,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/forbid-prop-types */
 
 
-var ApiHelper = new _helpers2.default();
-
 var Results = function (_Component) {
   _inherits(Results, _Component);
 
@@ -37,38 +31,21 @@ var Results = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Results.__proto__ || Object.getPrototypeOf(Results)).call(this, props));
 
-    _this.state = { results: [] };
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
 
   _createClass(Results, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      this.setState({ results: nextProps.results });
-    }
-
-    // eslint-disable-next-line class-methods-use-this
-
-  }, {
     key: 'handleClick',
     value: function handleClick(article) {
-      var _this2 = this;
-
-      ApiHelper.saveArticle(article.headline.main, article.web_url).then(function (resp) {
-        if (resp.data.success) {
-          _this2.props.socket.emit('new_saved');
-          ApiHelper.getSaved().then(function (answ) {
-            _this2.props.updateSaved(answ.data);
-          });
-        }
-      });
+      this.props.actions.saveNewArticle(article.headline.main, article.web_url);
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
-      if (this.state.results.length === 0) {
+      if (this.props.results.length === 0) {
         return _react2.default.createElement(
           'div',
           { style: { marginBottom: '1em' } },
@@ -92,7 +69,7 @@ var Results = function (_Component) {
         );
       }
 
-      var articles = this.state.results.map(function (article) {
+      var articles = this.props.results.map(function (article) {
         return (
           //  eslint-disable-next-line no-underscore-dangle
           _react2.default.createElement(
@@ -128,7 +105,7 @@ var Results = function (_Component) {
                   _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: function onClick() {
-                        return _this3.handleClick(article);
+                        return _this2.handleClick(article);
                       } },
                     'Save'
                   )
@@ -180,8 +157,7 @@ var Results = function (_Component) {
 
 Results.propTypes = {
   results: _propTypes2.default.array.isRequired,
-  updateSaved: _propTypes2.default.func.isRequired,
-  socket: _propTypes2.default.object.isRequired
+  actions: _propTypes2.default.object.isRequired
 };
 
 exports.default = Results;

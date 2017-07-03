@@ -16,13 +16,12 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/forbid-prop-types */
+
 
 var Query = function (_Component) {
   _inherits(Query, _Component);
@@ -32,22 +31,32 @@ var Query = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Query.__proto__ || Object.getPrototypeOf(Query)).call(this, props));
 
-    _this.state = { topic: '', startYr: '', endYr: '' };
-
-    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleChangeSearch = _this.handleChangeSearch.bind(_this);
+    _this.handleChangeStartYr = _this.handleChangeStartYr.bind(_this);
+    _this.handleChangeEndYr = _this.handleChangeEndYr.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
 
   _createClass(Query, [{
-    key: 'handleChange',
-    value: function handleChange(e) {
-      this.setState(_defineProperty({}, e.target.id, e.target.value));
+    key: 'handleChangeSearch',
+    value: function handleChangeSearch(e) {
+      this.props.actions.changeTerm(e.target.value);
+    }
+  }, {
+    key: 'handleChangeStartYr',
+    value: function handleChangeStartYr(e) {
+      this.props.actions.changeStartYr(e.target.value);
+    }
+  }, {
+    key: 'handleChangeEndYr',
+    value: function handleChangeEndYr(e) {
+      this.props.actions.changeEndYr(e.target.value);
     }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit() {
-      this.props.performSearch(this.state);
+      this.props.actions.requestArticles(this.props.search);
     }
   }, {
     key: 'render',
@@ -69,7 +78,7 @@ var Query = function (_Component) {
           { className: 'panel-body' },
           _react2.default.createElement(
             'form',
-            null,
+            { autoComplete: 'on' },
             _react2.default.createElement(
               'div',
               { className: 'form-group' },
@@ -80,10 +89,10 @@ var Query = function (_Component) {
               ),
               _react2.default.createElement('input', {
                 type: 'text',
-                value: this.state.topic,
+                value: this.props.search.topic,
                 className: 'form-control ',
                 id: 'topic',
-                onChange: this.handleChange
+                onChange: this.handleChangeSearch
               }),
               _react2.default.createElement(
                 'h4',
@@ -91,10 +100,10 @@ var Query = function (_Component) {
                 'Start Year (Required)'
               ),
               _react2.default.createElement('input', {
-                value: this.state.startYr,
+                value: this.props.search.startYr,
                 className: 'form-control ',
                 id: 'startYr',
-                onChange: this.handleChange,
+                onChange: this.handleChangeStartYr,
                 required: true
               }),
               _react2.default.createElement(
@@ -103,10 +112,11 @@ var Query = function (_Component) {
                 'End Year (Required)'
               ),
               _react2.default.createElement('input', {
-                value: this.state.endYr,
-                className: 'form-control ',
+                value: this.props.search.endYr,
+                className: 'form-control',
+                type: 'text',
                 id: 'endYr',
-                onChange: this.handleChange,
+                onChange: this.handleChangeEndYr,
                 required: true
               })
             ),
@@ -133,7 +143,8 @@ var Query = function (_Component) {
 }(_react.Component);
 
 Query.propTypes = {
-  performSearch: _propTypes2.default.func.isRequired
+  actions: _propTypes2.default.object.isRequired,
+  search: _propTypes2.default.object.isRequired
 };
 
 exports.default = Query;

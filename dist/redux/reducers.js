@@ -1,2 +1,0 @@
-// const reducer
-"use strict";
