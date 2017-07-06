@@ -25,43 +25,42 @@ export const changeEndYr = (year = null) => ({
   payload: year,
 });
 
-export const requestArticles = ({ topic, startYr, endYr }) => {
-  const newArticles = ApiHelper.runQuery(topic, startYr, endYr)
-    .then(resp => resp.data.response.docs);
-
-  return {
-    type: REQUEST_ARTICLES,
-    payload: newArticles,
-  };
+export const requestArticles = ({ topic, startYr, endYr }) => (dispatch) => {
+  ApiHelper.runQuery(topic, startYr, endYr).then((resp) => {
+    dispatch({
+      type: REQUEST_ARTICLES,
+      payload: resp.data.response.docs,
+    });
+  });
 };
 
-export const getSaved = () => {
-  const saved = ApiHelper.getSaved()
-    .then(resp => resp.data);
-
-  return {
-    type: GET_SAVED,
-    payload: saved,
-  };
+export const getSaved = () => (dispatch) => {
+  ApiHelper.getSaved().then((resp) => {
+    dispatch({
+      type: GET_SAVED,
+      payload: resp.data,
+    });
+  });
 };
 
-export const deleteSaved = (id) => {
-  const updated = ApiHelper.deleteArticle(id).then(() =>
-     ApiHelper.getSaved().then(answ => answ.data),
+export const deleteSaved = id => (dispatch) => {
+  ApiHelper.deleteArticle(id).then(() =>
+    ApiHelper.getSaved().then((answ) => {
+      dispatch({
+        type: DELETE_ONE_SAVED,
+        payload: answ.data,
+      });
+    }),
   );
-
-  return {
-    type: DELETE_ONE_SAVED,
-    payload: updated,
-  };
 };
 
-export const saveNewArticle = (headline, url) => {
-  const newList = ApiHelper.saveArticle(headline, url).then(() =>
-    ApiHelper.getSaved().then(answ => answ.data),
-  );
-  return {
-    type: SAVE_NEW,
-    payload: newList,
-  };
+export const saveNewArticle = (headline, url) => (dispatch) => {
+  ApiHelper.saveArticle(headline, url).then(() => {
+    ApiHelper.getSaved().then((answ) => {
+      dispatch({
+        type: SAVE_NEW,
+        payload: answ.data,
+      });
+    });
+  });
 };

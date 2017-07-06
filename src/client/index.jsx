@@ -4,14 +4,15 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
-import ReduxPromise from 'redux-promise';
+// import ReduxPromise from 'redux-promise';
+import reduxThunk from 'redux-thunk';
 import reducedTotal from '../redux/reducers';
 import Routes from './routes';
 
 const store = createStore(
   reducedTotal,
   compose(
-    applyMiddleware(ReduxPromise),
+    applyMiddleware(reduxThunk),
     window.devToolsExtension ? window.devToolsExtension() : undefined,
   ),
 );
