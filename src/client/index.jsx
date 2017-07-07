@@ -4,18 +4,28 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
-// import ReduxPromise from 'redux-promise';
+import createHistory from 'history/createBrowserHistory';
+import { routerMiddleware } from 'react-router-redux';
+
 import reduxThunk from 'redux-thunk';
 import reducedTotal from '../redux/reducers';
 import Routes from './routes';
 
-const store = createStore(
-  reducedTotal,
-  compose(
-    applyMiddleware(reduxThunk),
-    window.devToolsExtension ? window.devToolsExtension() : undefined,
-  ),
-);
+export const history = createHistory();
+
+export function configureStore(initialState) {
+  const store = createStore(
+    reducedTotal,
+    initialState,
+    compose(
+      applyMiddleware(reduxThunk, routerMiddleware(history)),
+      window.devToolsExtension ? window.devToolsExtension() : f => f,
+    ),
+  );
+  return store;
+}
+
+const store = configureStore();
 
 // Hot module reload wrapper
 const wrapApp = AppComponent =>

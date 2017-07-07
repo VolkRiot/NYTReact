@@ -33,7 +33,9 @@ class Main extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <Route component={() =>
+              <Route
+                path="/"
+                component={() =>
                 (<Saved
                   socket={socket}
                   actions={this.props.actions}
@@ -50,7 +52,6 @@ class Main extends Component {
 
 Main.propTypes = {
   actions: PropTypes.object.isRequired,
-  changeTerm: PropTypes.func.isRequired,
   search: PropTypes.object.isRequired,
   saved: PropTypes.array.isRequired,
   results: PropTypes.array.isRequired,
