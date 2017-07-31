@@ -6,34 +6,17 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import path from 'path';
 import mongoose from 'mongoose';
-import Article from './models/Articles';
 import renderApp from './views/render-app';
 import routes from './routes';
+import setUpSocket from './socket';
 
 mongoose.Promise = Promise;
 
 const PORT = process.env.PORT || '8080';
 
-// Load Express and Socket.IO + events
+// Load Express and Http Server for Socket
 const app = express();
 const http = Server(app);
-const io = require('socket.io')(http);
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-
-  socket.on('new_saved', () => {
-    Article.find({}).exec((err, doc) => {
-      if (!err) {
-        io.emit('update_saved', doc);
-      }
-    });
-  });
-});
 
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI);
@@ -70,6 +53,9 @@ routes(app);
 app.get('*', (req, res) => {
   res.send(renderApp('NYTReact'));
 });
+
+// Start Socket connection
+setUpSocket(require('socket.io')(http));
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
