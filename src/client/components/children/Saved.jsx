@@ -5,15 +5,12 @@ import PropTypes from 'prop-types';
 class Saved extends Component {
   constructor(props) {
     super(props);
-    this.props.socket.on('update_saved', () => {
-      this.props.actions.getSaved();
-    });
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     // TODO: Not happy with this as a solution for init mount
-    // What id the databse is empty?
+    // What if id the databse is empty?
     // Should really be an initializing call to the Db to set state.
     if (this.props.saved.length <= 0) {
       this.props.actions.getSaved();
@@ -74,7 +71,6 @@ class Saved extends Component {
 }
 
 Saved.propTypes = {
-  socket: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   saved: PropTypes.array.isRequired,
 };

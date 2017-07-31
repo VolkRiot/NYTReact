@@ -11,6 +11,8 @@ import reduxThunk from 'redux-thunk';
 import reducedTotal from '../redux/reducers';
 import Routes from './routes';
 
+import setUpSocket from './socket';
+
 export const history = createHistory();
 
 export function configureStore(initialState) {
@@ -43,3 +45,5 @@ if (module.hot) {
     ReactDOM.render(wrapApp(NextApp), document.getElementById('app'));
   });
 }
+
+setUpSocket(store);

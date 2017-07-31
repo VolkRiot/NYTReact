@@ -2,7 +2,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -11,8 +10,6 @@ import Search from './children/Search';
 import Saved from './children/Saved';
 
 import * as Actions from '../../redux/actions';
-
-const socket = io();
 
 class Main extends Component {
   render() {
@@ -28,7 +25,6 @@ class Main extends Component {
           currentParams={this.props.search}
           currentResults={this.props.results}
           actions={this.props.actions}
-          socket={socket}
         />
         <div className="container">
           <div className="row">
@@ -37,7 +33,6 @@ class Main extends Component {
                 path="/"
                 component={() =>
                 (<Saved
-                  socket={socket}
                   actions={this.props.actions}
                   saved={this.props.saved}
                 />)}
