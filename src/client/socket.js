@@ -12,7 +12,7 @@ const setUpSocket = (store) => {
     // eslint-disable-next-line no-console
     console.log('Socket Disconnected from server');
   });
-  socket.on('new_saved', () => {
+  socket.on('saved_articles_updated', () => {
     store.dispatch(Actions.getSaved());
   });
 };
