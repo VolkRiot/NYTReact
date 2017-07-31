@@ -14,9 +14,15 @@ mongoose.Promise = Promise;
 
 const PORT = process.env.PORT || '8080';
 
-// Load Express and Http Server for Socket
+// Load Express and Http Server and Socket.io
 const app = express();
 const http = Server(app);
+const io = require('socket.io')(http);
+
+// App set reference in express
+app.set('socketio', io);
+
+setUpSocket(io);
 
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI);
@@ -53,9 +59,6 @@ routes(app);
 app.get('*', (req, res) => {
   res.send(renderApp('NYTReact'));
 });
-
-// Start Socket connection
-setUpSocket(require('socket.io')(http));
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {

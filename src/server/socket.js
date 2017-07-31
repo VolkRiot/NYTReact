@@ -18,6 +18,7 @@ const setUpSocket = (io) => {
       });
     });
   });
+  return io;
 };
 
 export default setUpSocket;

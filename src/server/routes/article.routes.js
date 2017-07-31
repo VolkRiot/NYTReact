@@ -14,6 +14,7 @@ Router.get('/saved', (req, res) => {
 });
 
 Router.post('/saved', (req, res) => {
+  const io = req.app.get('socketio');
   const newArticle = new Article(req.body);
   newArticle.save((err) => {
     if (err) {
