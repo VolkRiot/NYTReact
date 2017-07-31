@@ -20,6 +20,7 @@ Router.post('/saved', (req, res) => {
     if (err) {
       res.status(500).send('Error happened while saving your article');
     } else {
+      io.emit('new_saved');
       res.status(200).send({ success: true });
     }
   });

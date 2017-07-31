@@ -21,7 +21,6 @@ const io = require('socket.io')(http);
 
 // App set reference in express
 app.set('socketio', io);
-
 setUpSocket(io);
 
 if (process.env.MONGODB_URI) {
