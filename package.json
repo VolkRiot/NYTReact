@@ -46,6 +46,7 @@
     "mongoose": "^4.10.5",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.31.1",
     "react-dom": "^15.5.4",
     "react-hot-loader": "next",
     "react-redux": "^5.0.5",
