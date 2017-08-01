@@ -2,6 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Navbar from './NavBar';
+import * as Actions from '../../../redux/actions';
+
 class Saved extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +32,9 @@ class Saved extends Component {
       return (
         <li className="list-group-item">
           <h3>
-            <span><em>Looks like there are no saved Articles yet</em></span>
+            <span>
+              <em>Looks like there are no saved Articles yet</em>
+            </span>
           </h3>
         </li>
       );
@@ -38,7 +45,11 @@ class Saved extends Component {
       (<div key={article._id}>
         <li className="list-group-item">
           <h3>
-            <span><em>{article.title}</em></span>
+            <span>
+              <em>
+                {article.title}
+              </em>
+            </span>
             <span className="btn-group pull-right">
               <a href={article.url} target="_blank" rel="noopener noreferrer">
                 <button className="btn btn-default ">View Article</button>
@@ -48,16 +59,21 @@ class Saved extends Component {
               </button>
             </span>
           </h3>
-          <p>Date Published: {article.date}</p>
+          <p>
+            Date Published: {article.date}
+          </p>
         </li>
       </div>),
     );
 
     return (
       <div className="panel panel-primary">
+        <Navbar />
         <div className="panel-heading">
           <h1 className="panel-title">
-            <strong><i className="fa fa-download" aria-hidden="true" /> Saved Articles</strong>
+            <strong>
+              <i className="fa fa-download" aria-hidden="true" /> Saved Articles
+            </strong>
           </h1>
         </div>
         <div className="panel-body">
@@ -75,4 +91,12 @@ Saved.propTypes = {
   saved: PropTypes.array.isRequired,
 };
 
-export default Saved;
+const mapStateToProps = state => ({
+  saved: state.saved,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(Actions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Saved);
