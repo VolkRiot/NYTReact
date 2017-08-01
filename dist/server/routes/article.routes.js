@@ -27,21 +27,25 @@ Router.get('/saved', function (req, res) {
 });
 
 Router.post('/saved', function (req, res) {
+  var io = req.app.get('socketio');
   var newArticle = new _Articles2.default(req.body);
   newArticle.save(function (err) {
     if (err) {
       res.status(500).send('Error happened while saving your article');
     } else {
+      io.emit('saved_articles_updated');
       res.status(200).send({ success: true });
     }
   });
 });
 
 Router.delete('/saved', function (req, res) {
+  var io = req.app.get('socketio');
   _Articles2.default.findByIdAndRemove(req.query.id).then(function (resp, err) {
     if (err) {
       res.status(500).send('Failed to remove this record');
     } else {
+      io.emit('saved_articles_updated');
       res.status(200).send({ success: true });
     }
   });

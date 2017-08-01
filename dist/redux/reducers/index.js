@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = require('redux');
 
+var _reactRouterRedux = require('react-router-redux');
+
 var _reducers = require('./reducers');
 
 var _reducers2 = _interopRequireDefault(_reducers);
@@ -23,7 +25,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var rootReducer = (0, _redux.combineReducers)({
   search: _reducers2.default,
   results: _resultsReducer2.default,
-  saved: _savedReducer2.default
+  saved: _savedReducer2.default,
+  router: _reactRouterRedux.routerReducer
 });
 
 exports.default = rootReducer;

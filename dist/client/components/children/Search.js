@@ -33,10 +33,7 @@ function Search(props) {
       _react2.default.createElement(
         'div',
         { className: 'col-lg-12' },
-        _react2.default.createElement(_Query2.default, {
-          search: props.currentParams,
-          actions: props.actions
-        })
+        _react2.default.createElement(_Query2.default, { search: props.currentParams, actions: props.actions })
       )
     ),
     _react2.default.createElement(
@@ -45,18 +42,13 @@ function Search(props) {
       _react2.default.createElement(
         'div',
         { className: 'col-md-12' },
-        _react2.default.createElement(_Results2.default, {
-          results: props.currentResults,
-          socket: props.socket,
-          actions: props.actions
-        })
+        _react2.default.createElement(_Results2.default, { results: props.currentResults, actions: props.actions })
       )
     )
   );
 }
 
 Search.propTypes = {
-  socket: _propTypes2.default.object.isRequired,
   currentParams: _propTypes2.default.object.isRequired,
   actions: _propTypes2.default.object.isRequired,
   currentResults: _propTypes2.default.array.isRequired

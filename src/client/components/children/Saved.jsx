@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Navbar from './NavBar';
 import * as Actions from '../../../redux/actions';
 
 class Saved extends Component {
@@ -68,7 +67,6 @@ class Saved extends Component {
 
     return (
       <div className="panel panel-primary">
-        <Navbar />
         <div className="panel-heading">
           <h1 className="panel-title">
             <strong>

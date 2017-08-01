@@ -49,49 +49,49 @@ var requestArticles = exports.requestArticles = function requestArticles(_ref) {
   var topic = _ref.topic,
       startYr = _ref.startYr,
       endYr = _ref.endYr;
-
-  var newArticles = ApiHelper.runQuery(topic, startYr, endYr).then(function (resp) {
-    return resp.data.response.docs;
-  });
-
-  return {
-    type: REQUEST_ARTICLES,
-    payload: newArticles
+  return function (dispatch) {
+    ApiHelper.runQuery(topic, startYr, endYr).then(function (resp) {
+      dispatch({
+        type: REQUEST_ARTICLES,
+        payload: resp.data.response.docs
+      });
+    });
   };
 };
 
 var getSaved = exports.getSaved = function getSaved() {
-  var saved = ApiHelper.getSaved().then(function (resp) {
-    return resp.data;
-  });
-
-  return {
-    type: GET_SAVED,
-    payload: saved
+  return function (dispatch) {
+    ApiHelper.getSaved().then(function (resp) {
+      dispatch({
+        type: GET_SAVED,
+        payload: resp.data
+      });
+    });
   };
 };
 
 var deleteSaved = exports.deleteSaved = function deleteSaved(id) {
-  var updated = ApiHelper.deleteArticle(id).then(function () {
-    return ApiHelper.getSaved().then(function (answ) {
-      return answ.data;
+  return function (dispatch) {
+    ApiHelper.deleteArticle(id).then(function () {
+      return ApiHelper.getSaved().then(function (answ) {
+        dispatch({
+          type: DELETE_ONE_SAVED,
+          payload: answ.data
+        });
+      });
     });
-  });
-
-  return {
-    type: DELETE_ONE_SAVED,
-    payload: updated
   };
 };
 
 var saveNewArticle = exports.saveNewArticle = function saveNewArticle(headline, url) {
-  var newList = ApiHelper.saveArticle(headline, url).then(function () {
-    return ApiHelper.getSaved().then(function (answ) {
-      return answ.data;
+  return function (dispatch) {
+    ApiHelper.saveArticle(headline, url).then(function () {
+      ApiHelper.getSaved().then(function (answ) {
+        dispatch({
+          type: SAVE_NEW,
+          payload: answ.data
+        });
+      });
     });
-  });
-  return {
-    type: SAVE_NEW,
-    payload: newList
   };
 };

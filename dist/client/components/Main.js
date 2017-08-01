@@ -12,10 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _socket = require('socket.io-client');
-
-var _socket2 = _interopRequireDefault(_socket);
-
 var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
@@ -23,6 +19,10 @@ var _redux = require('redux');
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _NavBar = require('./children/NavBar');
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
 
 var _Search = require('./children/Search');
 
@@ -48,8 +48,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 /* eslint-disable react/forbid-prop-types */
 
 
-var socket = (0, _socket2.default)();
-
 var Main = function (_Component) {
   _inherits(Main, _Component);
 
@@ -62,11 +60,10 @@ var Main = function (_Component) {
   _createClass(Main, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         'div',
         { className: 'main-container' },
+        _react2.default.createElement(_NavBar2.default, null),
         _react2.default.createElement(
           'div',
           { className: 'jumbotron text-center' },
@@ -90,8 +87,7 @@ var Main = function (_Component) {
           changeSearch: this.props.actions.changeTerm,
           currentParams: this.props.search,
           currentResults: this.props.results,
-          actions: this.props.actions,
-          socket: socket
+          actions: this.props.actions
         }),
         _react2.default.createElement(
           'div',
@@ -102,14 +98,9 @@ var Main = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'col-lg-12' },
-              _react2.default.createElement(_reactRouter.Route, { component: function component() {
-                  return _react2.default.createElement(_Saved2.default, {
-                    socket: socket,
-                    actions: _this2.props.actions,
-                    saved: _this2.props.saved
-                  });
-                }
-              })
+              _react2.default.createElement(_reactRouter.Route, { path: '/', component: function component() {
+                  return _react2.default.createElement(_Saved2.default, null);
+                } })
             )
           )
         )
@@ -122,9 +113,7 @@ var Main = function (_Component) {
 
 Main.propTypes = {
   actions: _propTypes2.default.object.isRequired,
-  changeTerm: _propTypes2.default.func.isRequired,
   search: _propTypes2.default.object.isRequired,
-  saved: _propTypes2.default.array.isRequired,
   results: _propTypes2.default.array.isRequired
 };
 

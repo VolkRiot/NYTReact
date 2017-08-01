@@ -24,10 +24,6 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _Articles = require('./models/Articles');
-
-var _Articles2 = _interopRequireDefault(_Articles);
-
 var _renderApp = require('./views/render-app');
 
 var _renderApp2 = _interopRequireDefault(_renderApp);
@@ -36,6 +32,10 @@ var _routes = require('./routes');
 
 var _routes2 = _interopRequireDefault(_routes);
 
+var _socket = require('./socket');
+
+var _socket2 = _interopRequireDefault(_socket);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* eslint-disable no-console*/
@@ -43,26 +43,14 @@ _mongoose2.default.Promise = Promise;
 
 var PORT = process.env.PORT || '8080';
 
-// Load Express and Socket.IO + events
+// Load Express and Http Server and Socket.io
 var app = (0, _express2.default)();
 var http = (0, _http.Server)(app);
 var io = require('socket.io')(http);
 
-io.on('connection', function (socket) {
-  console.log('a user connected');
-
-  socket.on('disconnect', function () {
-    console.log('user disconnected');
-  });
-
-  socket.on('new_saved', function () {
-    _Articles2.default.find({}).exec(function (err, doc) {
-      if (!err) {
-        io.emit('update_saved', doc);
-      }
-    });
-  });
-});
+// App set reference in express
+app.set('socketio', io);
+(0, _socket2.default)(io);
 
 if (process.env.MONGODB_URI) {
   _mongoose2.default.connect(process.env.MONGODB_URI);

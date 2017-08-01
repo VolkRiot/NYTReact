@@ -14,6 +14,16 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _reactRedux = require('react-redux');
+
+var _redux = require('redux');
+
+var _actions = require('../../../redux/actions');
+
+var Actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31,9 +41,6 @@ var Saved = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Saved.__proto__ || Object.getPrototypeOf(Saved)).call(this, props));
 
-    _this.props.socket.on('update_saved', function () {
-      _this.props.actions.getSaved();
-    });
     _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
@@ -42,7 +49,7 @@ var Saved = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // TODO: Not happy with this as a solution for init mount
-      // What id the databse is empty?
+      // What if id the databse is empty?
       // Should really be an initializing call to the Db to set state.
       if (this.props.saved.length <= 0) {
         this.props.actions.getSaved();
@@ -166,9 +173,20 @@ var Saved = function (_Component) {
 }(_react.Component);
 
 Saved.propTypes = {
-  socket: _propTypes2.default.object.isRequired,
   actions: _propTypes2.default.object.isRequired,
   saved: _propTypes2.default.array.isRequired
 };
 
-exports.default = Saved;
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    saved: state.saved
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    actions: (0, _redux.bindActionCreators)(Actions, dispatch)
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Saved);

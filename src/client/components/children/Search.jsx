@@ -9,19 +9,12 @@ function Search(props) {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <Query
-            search={props.currentParams}
-            actions={props.actions}
-          />
+          <Query search={props.currentParams} actions={props.actions} />
         </div>
       </div>
       <div className="row">
         <div className="col-md-12">
-          <Results
-            results={props.currentResults}
-            socket={props.socket}
-            actions={props.actions}
-          />
+          <Results results={props.currentResults} actions={props.actions} />
         </div>
       </div>
     </div>
@@ -29,7 +22,6 @@ function Search(props) {
 }
 
 Search.propTypes = {
-  socket: PropTypes.object.isRequired,
   currentParams: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   currentResults: PropTypes.array.isRequired,
