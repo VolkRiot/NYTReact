@@ -12,7 +12,8 @@
     "dev:wds": "webpack-dev-server --progress",
     "test": "eslint src webpack.config.babel.js --ext .js,.jsx",
     "precommit": "npm test",
-    "prepush": "npm test"
+    "prepush": "npm test",
+    "heroku-postbuild": "npm run prod:build"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
