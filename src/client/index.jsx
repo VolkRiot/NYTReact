@@ -1,4 +1,6 @@
 /* eslint-disable global-require */
+import $ from 'jquery';
+import Tether from 'tether';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -12,6 +14,10 @@ import reducedTotal from '../redux/reducers';
 import Routes from './routes';
 
 import setUpSocket from './socket';
+
+window.jQuery = $;
+window.Tether = Tether;
+require('bootstrap');
 
 export const history = createHistory();
 

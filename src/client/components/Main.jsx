@@ -15,6 +15,28 @@ class Main extends Component {
   render() {
     return (
       <div className="main-container">
+        <nav className="navbar navbar-inverse bg-inverse">
+          <a className="navbar-brand" href="/">
+            NYTReact
+          </a>
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <a className="nav-link" href="#">
+                Home <span className="sr-only">(current)</span>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Link
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link disabled" href="#">
+                Disabled
+              </a>
+            </li>
+          </ul>
+        </nav>
         <div className="jumbotron text-center">
           <h1 className="display-3">NYT React App</h1>
           <p className="lead">This is a simple New York Times React Application</p>
@@ -31,11 +53,7 @@ class Main extends Component {
             <div className="col-lg-12">
               <Route
                 path="/"
-                component={() =>
-                (<Saved
-                  actions={this.props.actions}
-                  saved={this.props.saved}
-                />)}
+                component={() => <Saved actions={this.props.actions} saved={this.props.saved} />}
               />
             </div>
           </div>
