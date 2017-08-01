@@ -1,4 +1,4 @@
-/* eslint-disable no-console*/
+/* eslint-disable no-console */
 import 'babel-polyfill';
 import express from 'express';
 import { Server } from 'http';
