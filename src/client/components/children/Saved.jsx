@@ -10,13 +10,11 @@ class Saved extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = { initRender: true };
   }
 
   componentDidMount() {
-    // TODO: Not happy with this as a solution for init mount
-    // What if id the databse is empty?
-    // Should really be an initializing call to the Db to set state.
-    if (this.props.saved.length <= 0) {
+    if (this.props.saved.length <= 0 && this.state.initRender === true) {
       this.props.actions.getSaved();
     }
   }
