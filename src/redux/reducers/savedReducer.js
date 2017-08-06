@@ -1,15 +1,15 @@
 import { GET_SAVED, DELETE_ONE_SAVED, SAVE_NEW } from '../actions';
 
-const getSavedReducer = (state = [], action) => {
+const getSavedReducer = (state = { articles: [], loaded: false }, action) => {
   switch (action.type) {
     case GET_SAVED:
-      return [...action.payload];
+      return { articles: [...action.payload], loaded: true };
     case DELETE_ONE_SAVED:
-      return [...action.payload];
+      return { ...state, articles: [...action.payload] };
     case SAVE_NEW:
-      return [...action.payload];
+      return { ...state, articles: [...action.payload] };
     default:
-      return [...state];
+      return { ...state };
   }
 };
 

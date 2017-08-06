@@ -27,12 +27,18 @@ class Saved extends Component {
   }
 
   render() {
+    let msg = <em>Looks like there are no saved Articles yet</em>;
+
+    if (!this.props.loaded) {
+      msg = <h1>Loading...</h1>;
+    }
+
     if (this.props.saved.length === 0) {
       return (
         <li className="list-group-item">
           <h3>
             <span>
-              <em>Looks like there are no saved Articles yet</em>
+              {msg}
             </span>
           </h3>
         </li>
@@ -84,13 +90,19 @@ class Saved extends Component {
   }
 }
 
+Saved.defaultProps = {
+  loaded: false,
+};
+
 Saved.propTypes = {
   actions: PropTypes.object.isRequired,
   saved: PropTypes.array.isRequired,
+  loaded: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  saved: state.saved,
+  saved: state.saved.articles,
+  loaded: state.saved.loaded,
 });
 
 const mapDispatchToProps = dispatch => ({
