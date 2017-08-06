@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/forbid-prop-types */
-import React, { Component } from 'react';
+import React from 'react';
 import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,32 +12,30 @@ import Saved from './children/Saved';
 
 import * as Actions from '../../redux/actions';
 
-class Main extends Component {
-  render() {
-    return (
-      <div className="main-container">
-        <Navbar />
-        <div className="jumbotron text-center">
-          <h1 className="display-3">NYT React App</h1>
-          <p className="lead">This is a simple New York Times React Application</p>
-          <p>Search for Articles in the NYT Api and save them to a Mongo database</p>
-        </div>
-        <Search
-          changeSearch={this.props.actions.changeTerm}
-          currentParams={this.props.search}
-          currentResults={this.props.results}
-          actions={this.props.actions}
-        />
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <Route path="/" component={() => <Saved />} />
-            </div>
+function Main({ actions, search, results }) {
+  return (
+    <div className="main-container">
+      <Navbar />
+      <div className="jumbotron text-center">
+        <h1 className="display-3">NYT React App</h1>
+        <p className="lead">This is a simple New York Times React Application</p>
+        <p>Search for Articles in the NYT Api and save them to a Mongo database</p>
+      </div>
+      <Search
+        changeSearch={actions.changeTerm}
+        currentParams={search}
+        currentResults={results}
+        actions={actions}
+      />
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            <Route path="/" component={() => <Saved />} />
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Main.propTypes = {
