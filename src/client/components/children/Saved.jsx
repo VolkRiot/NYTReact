@@ -10,12 +10,14 @@ class Saved extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = { initRender: true };
+
+    this.initRender = true;
   }
 
   componentDidMount() {
-    if (this.props.saved.length <= 0 && this.state.initRender === true) {
+    if (this.props.saved.length <= 0 && this.initRender === true) {
       this.props.actions.getSaved();
+      this.initRender = false;
     }
   }
 
