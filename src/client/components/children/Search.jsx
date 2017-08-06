@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import Query from './search/Query';
 import Results from './search/Results';
 
-function Search(props) {
+function Search({ currentParams, currentResults, actions }) {
   return (
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <Query search={props.currentParams} actions={props.actions} />
+          <Query search={currentParams} actions={actions} />
         </div>
       </div>
       <div className="row">
         <div className="col-md-12">
-          <Results results={props.currentResults} actions={props.actions} />
+          <Results results={currentResults} actions={actions} />
         </div>
       </div>
     </div>
